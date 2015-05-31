@@ -1,14 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <h:form>  
+            <p:growl id="messages"/>
+            <p:menubar  style="background-color: #336699">
+                <p:menuitem value="Home" url="/index" icon="ui-icon-home" />
+
+                <f:facet name="options">
+                    <p:commandButton type="button" onclick="PF('dlg2').show();" value="Nombre usuario" />
+                    <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" style="background-color: #3366FF"/>
+<!--Dialogo modal para iniciar sesión************************************************************************************** -->                
+                    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="auto">
+                    <h:form>
+                        <h:panelGrid columns="2" id="matchGrid" cellpadding="5">                   
+                            <h:outputLabel value="Usuario: " />
+                            <p:inputText placeholder="ej. juanperez15" />
+
+                            <h:outputLabel for="pwd" value="Contraseña: *" />
+                            <p:password id="pwd2" value="#{passwordView.password5}" label="Password 2" required="true" />
+                        </h:panelGrid>
+                        <p:spacer height="6" />
+                        <p:separator />
+                        
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:commandButton update="matchGrid" value="Aceptar" />
+                        <p:commandButton update="matchGrid" value="Cancelar" />
+                    </h:form>
+                </p:dialog> 
+                </f:facet>
+                
+                
+            </p:menubar>
+        </h:form>
     </h:body>
 </html>
 
