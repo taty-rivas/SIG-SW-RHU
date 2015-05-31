@@ -6,8 +6,8 @@
 
 package com.actions;
 
-import Paquete1.Alumnos;
-import Paquete1.NewHibernateUtil;
+import entidades.Alumnos;
+import entidades.NewHibernateUtil;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

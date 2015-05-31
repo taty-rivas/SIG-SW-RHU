@@ -1,4 +1,4 @@
-package Paquete1;
+package entidades;
 // Generated 05-30-2015 09:59:19 PM by Hibernate Tools 3.6.0
 
 
