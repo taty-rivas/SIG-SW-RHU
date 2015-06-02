@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+ <f:view contentType="text/html">  
+    <h:head>
+            <f:facet name="first">
+                <title>SIG para la Administracion de Recursos Humanos de Sherwin Williams de CA</title>
+            </f:facet>
+            <link href="../resources/css/styleSW.css" type="text/css" rel="stylesheet"/>
+        </h:head>
+    <h:body>
+        <h:panelGrid columns="2" id="matchGrid" cellpadding="5">  
+                        <h:graphicImage value ="/resources/img/logo.png" style="width: 190px;"/>
+                        <h1>RECURSOS HUMANOS</h1>
+                    </h:panelGrid>
+        <h:form>
+           
+            <p:tabView orientation="left">
+                <p:tab title="Rotacion de Personal">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:form id="form">
+                            <p:growl id="msgs" showDetail="true" />
+                            <p:outputLabel for="ini" value="Inicio:" />
+                            <p:calendar id="ini" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha"/>
+                            <br></br><br></br>
+                            <p:outputLabel for="fin" value="Fin:                              " />
+                            <p:calendar id="fin" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha" />
+                       
+                        </h:form>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Costo de Capacitaciones">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Contrataciones">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Ausencias">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title=" Presupuesto por Area">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+  </f:view>
+</html>
+

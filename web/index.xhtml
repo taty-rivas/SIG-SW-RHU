@@ -8,8 +8,9 @@
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
-                <title>Facelet Title</title>
+                <title>SIG para la Administracion de Recursos Humanos de Sherwin Williams de CA</title>
             </f:facet>
+            <link href="resources/css/styleSW.css" type="text/css" rel="stylesheet"/>
         </h:head>
     
         <h:body>
@@ -18,24 +19,24 @@
                 <p:layoutUnit position="north" size="auto" resizable="false" closable="false" collapsible="true">
                     <h:form>  
                         <p:growl id="messages"/>
-                        <p:menubar style="background-color: #336699">
-                            <p:menuitem value="Home" url="/index" icon="ui-icon-home"  style="color:white;"/>
+                        <p:menubar class="menubar">
+                            <p:menuitem value="Home" url="/index" icon="ui-icon-home" class="menuitem"/>
 
                             <f:facet name="options">
                                 <p:commandButton type="button" onclick="PF('dlg2').show();" value="Nombre usuario" />
-                                <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" style="background-color: #3366FF"/>
+                                <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" class="commandButton"/>
 
                             </f:facet>
                         </p:menubar>
                     </h:form>
                     <h:panelGrid columns="2" id="matchGrid" cellpadding="5">  
-                        <h:graphicImage value ="/img/logo.png" style="width: 190px;"/>
-                        <h1 style="color:#336699; alignment-adjust: central">RECURSOS HUMANOS</h1>
+                        <h:graphicImage value ="/resources/img/logo.png" style="width: 190px;"/>
+                        <h1>RECURSOS HUMANOS</h1>
                     </h:panelGrid>
 
                 </p:layoutUnit>
 
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true" style="background-color: darkcyan">
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true" class="layoutUnit">
                     Footer
                 </p:layoutUnit>
 
@@ -55,7 +56,7 @@
                 <p:layoutUnit position="center">
                   
                     
-                    <p:graphicImage value="/img/recursos1.png" style="margin: auto" />
+                    <p:graphicImage value="resources/img/recursos1.png" class="graphicImage" />
                 </p:layoutUnit>
 
             </p:layout>

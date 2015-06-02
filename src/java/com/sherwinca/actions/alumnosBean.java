@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package com.actions;
+package com.sherwinca.actions;
 
-import entidades.Alumnos;
-import entidades.NewHibernateUtil;
+import com.sherwinca.entidades.Alumnos;
+import com.sherwinca.entidades.NewHibernateUtil;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
