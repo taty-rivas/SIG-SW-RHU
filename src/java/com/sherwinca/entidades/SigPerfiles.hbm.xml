@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sherwinca.entidades.SigPerfiles" table="sig_perfiles" schema="sig_rhu_sw">
+        <id name="SPkPerfil" type="int">
+            <column name="s_pk_perfil" />
+            <generator class="assigned" />
+        </id>
+        <property name="vcNmbPerfil" type="string">
+            <column name="vc_nmb_perfil" length="50" not-null="true" />
+        </property>
+        <property name="vcDescripcionPerfil" type="string">
+            <column name="vc_descripcion_perfil" length="50" />
+        </property>
+        <set name="sigUsuarios" table="sig_usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="s_fk_perfil" not-null="true" />
+            </key>
+            <one-to-many class="com.sherwinca.entidades.SigUsuario" />
+        </set>
+        <set name="sigModulos" table="sig_tienepermisoa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="s_pk_perfil" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.sherwinca.entidades.SigModulo">
+                <column name="s_pk_modulo" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

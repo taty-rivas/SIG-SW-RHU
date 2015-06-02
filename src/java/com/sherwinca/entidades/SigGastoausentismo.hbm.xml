@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sherwinca.entidades.SigGastoausentismo" table="sig_gastoausentismo" schema="sig_rhu_sw">
+        <id name="SPkAusentismo" type="int">
+            <column name="s_pk_ausentismo" />
+            <generator class="assigned" />
+        </id>
+        <property name="vcNmbempAusentismo" type="string">
+            <column name="vc_nmbemp_ausentismo" length="50" not-null="true" />
+        </property>
+        <property name="vcApAusentismo" type="string">
+            <column name="vc_ap_ausentismo" length="50" not-null="true" />
+        </property>
+        <property name="IHorasAusentismo" type="int">
+            <column name="i_horas_ausentismo" not-null="true" />
+        </property>
+        <property name="vcAreaAusentismo" type="string">
+            <column name="vc_area_ausentismo" length="50" not-null="true" />
+        </property>
+        <property name="ITipopermisoAusentismo" type="int">
+            <column name="i_tipopermiso_ausentismo" not-null="true" />
+        </property>
+        <property name="vcMesAusentismo" type="string">
+            <column name="vc_mes_ausentismo" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

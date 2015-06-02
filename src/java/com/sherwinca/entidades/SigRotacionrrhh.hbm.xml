@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sherwinca.entidades.SigRotacionrrhh" table="sig_rotacionrrhh" schema="sig_rhu_sw">
+        <id name="SPkRotrrhh" type="int">
+            <column name="s_pk_rotrrhh" />
+            <generator class="assigned" />
+        </id>
+        <property name="vcNmbRotrrhh" type="string">
+            <column name="vc_nmb_rotrrhh" length="50" not-null="true" />
+        </property>
+        <property name="vcApRotrrhh" type="string">
+            <column name="vc_ap_rotrrhh" length="50" not-null="true" />
+        </property>
+        <property name="ITiporotRotrrhh" type="int">
+            <column name="i_tiporot_rotrrhh" not-null="true" />
+        </property>
+        <property name="vcAreaRotrrhh" type="string">
+            <column name="vc_area_rotrrhh" length="250" not-null="true" />
+        </property>
+        <property name="dtRotRotrrhh" type="date">
+            <column name="dt_rot_rotrrhh" length="13" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

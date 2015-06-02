@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sherwinca.entidades.SigFaltasgraves" table="sig_faltasgraves" schema="sig_rhu_sw">
+        <id name="SPkFaltas" type="int">
+            <column name="s_pk_faltas" />
+            <generator class="assigned" />
+        </id>
+        <property name="vcNmbempFaltas" type="string">
+            <column name="vc_nmbemp_faltas" length="50" not-null="true" />
+        </property>
+        <property name="vcApFaltas" type="string">
+            <column name="vc_ap_faltas" length="50" not-null="true" />
+        </property>
+        <property name="vcMesFaltas" type="string">
+            <column name="vc_mes_faltas" length="50" not-null="true" />
+        </property>
+        <property name="vcAreaFaltas" type="string">
+            <column name="vc_area_faltas" length="50" not-null="true" />
+        </property>
+        <property name="INoFallas" type="int">
+            <column name="i_no_fallas" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

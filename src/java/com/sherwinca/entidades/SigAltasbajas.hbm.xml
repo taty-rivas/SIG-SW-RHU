@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sherwinca.entidades.SigAltasbajas" table="sig_altasbajas" schema="sig_rhu_sw">
+        <id name="SPkAb" type="int">
+            <column name="s_pk_ab" />
+            <generator class="assigned" />
+        </id>
+        <property name="vcNmbempAb" type="string">
+            <column name="vc_nmbemp_ab" length="50" not-null="true" />
+        </property>
+        <property name="vcApAb" type="string">
+            <column name="vc_ap_ab" length="50" not-null="true" />
+        </property>
+        <property name="IEstadoAb" type="int">
+            <column name="i_estado_ab" not-null="true" />
+        </property>
+        <property name="vcMesAb" type="string">
+            <column name="vc_mes_ab" length="50" not-null="true" />
+        </property>
+        <property name="vcAreaAb" type="string">
+            <column name="vc_area_ab" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

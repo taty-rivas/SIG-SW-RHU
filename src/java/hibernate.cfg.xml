@@ -4,9 +4,25 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/alumnos</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/sherwin</property>
     <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">123</property>
+    <property name="hibernate.connection.password">sig123</property>
     <mapping resource="com/sherwinca/entidades/Alumnos.hbm.xml"/>
+    <mapping/>
+    <mapping resource="com/sherwinca/entidades/SigRotacionrrhh.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigInversioninsaforp.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigAltasbajas.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigUsuario.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigModulo.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigPersonalcontratado.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigCapacitacionimpartida.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigPresupuestounidades.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigPersonaldisponible.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigCostossalarios.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigLimitepermiso.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigGastoausentismo.hbm.xml"/>
+    <mapping resource="com/sherwinca/entidades/SigFaltasgraves.hbm.xml"/>
+    <mapping/>
+    <mapping resource="com/sherwinca/entidades/SigPerfiles.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

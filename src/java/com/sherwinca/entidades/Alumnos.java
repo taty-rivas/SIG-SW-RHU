@@ -1,5 +1,5 @@
 package com.sherwinca.entidades;
-// Generated 05-30-2015 09:59:19 PM by Hibernate Tools 3.6.0
+// Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0
 
 
 
@@ -16,12 +16,7 @@ public class Alumnos  implements java.io.Serializable {
     public Alumnos() {
     }
 
-	
-    public Alumnos(int idalumno) {
-        this.idalumno = idalumno;
-    }
-    public Alumnos(int idalumno, String nombres, String aplellidos) {
-       this.idalumno = idalumno;
+    public Alumnos(String nombres, String aplellidos) {
        this.nombres = nombres;
        this.aplellidos = aplellidos;
     }

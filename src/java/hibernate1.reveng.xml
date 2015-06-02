@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="sherwin" match-schema="sig_rhu_sw"/>
+  <table-filter match-name="sig_usuario"/>
+  <table-filter match-name="sig_inversioninsaforp"/>
+  <table-filter match-name="sig_modulo"/>
+  <table-filter match-name="sig_gastoausentismo"/>
+  <table-filter match-name="sig_presupuestounidades"/>
+  <table-filter match-name="sig_personalcontratado"/>
+  <table-filter match-name="sig_rotacionrrhh"/>
+  <table-filter match-name="sig_altasbajas"/>
+  <table-filter match-name="sig_personaldisponible"/>
+  <table-filter match-name="sig_faltasgraves"/>
+  <table-filter match-name="sig_costossalarios"/>
+  <table-filter match-name="sig_tienepermisoa"/>
+  <table-filter match-name="sig_perfiles"/>
+  <table-filter match-name="sig_capacitacionimpartida"/>
+  <table-filter match-name="sig_limitepermiso"/>
+</hibernate-reverse-engineering>
