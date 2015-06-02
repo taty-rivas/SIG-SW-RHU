@@ -28,6 +28,43 @@
                             <br></br><br></br>
                             <p:outputLabel for="fin" value="Fin:                              " />
                             <p:calendar id="fin" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha" />
+                            <p:commandButton value="Mostrar" actionListener="#{rotacionBean.listar()}" update="dtRotacion"/>
+                            <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion">
+                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.apellido}"/>
+                                </p:column>
+                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.area}"/>
+                                </p:column>
+                            
+                            
+                            
+                            
+                            </p:dataTable>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                        
                         </h:form>
 
