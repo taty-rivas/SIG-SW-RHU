@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    
+
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
@@ -12,10 +12,10 @@
             </f:facet>
             <link href="resources/css/styleSW.css" type="text/css" rel="stylesheet"/>
         </h:head>
-    
+
         <h:body>
             <p:layout fullPage="true"><!--pagina completa funcion de wrapper-->
-<!-- Header **********************************************************************************************************-->            
+                <!-- Header **********************************************************************************************************-->            
                 <p:layoutUnit position="north" size="auto" resizable="false" closable="false" collapsible="true">
                     <h:form>  
                         <p:growl id="messages"/>
@@ -23,7 +23,7 @@
                             <p:menuitem value="Home" url="/index" icon="ui-icon-home" class="menuitem"/>
 
                             <f:facet name="options">
-                                <p:commandButton type="button" onclick="PF('dlg2').show();" value="Nombre usuario" />
+                                <p:commandButton type="button" onclick="PF('dlg2').show();" value="Iniciar Sesión" />
                                 <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" class="commandButton"/>
 
                             </f:facet>
@@ -52,11 +52,12 @@
 
                     </p:menu>
                 </p:layoutUnit> -->
-<!-- Contenido **********************************************************************************************************-->            
+                <!-- Contenido **********************************************************************************************************-->            
                 <p:layoutUnit position="center">
-                  
-                    
-                    <p:graphicImage value="resources/img/recursos1.png" class="graphicImage" />
+
+                    <center>
+                        <p:graphicImage value="resources/img/recursos1.png" class="graphicImage" style="width: auto;"/>
+                    </center>
                 </p:layoutUnit>
 
             </p:layout>
@@ -64,25 +65,25 @@
         </h:body>
 
     </f:view>
-            
-  <!--Dialogo modal para iniciar sesión fuera del view ************************************************************************************** -->                
-                                <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="auto" width="auto">
-                                    <h:form>
-                                        <h:panelGrid columns="2" id="matchGrid" cellpadding="5">                   
-                                            <h:outputLabel value="Usuario: " />
-                                            <p:inputText placeholder="ej. juanperez15" />
-                                            <h:outputLabel for="pwd" value="Contraseña: *" />
-                                            <p:password id="pas" label="Password 2" required="true" />
-                                        </h:panelGrid>
-                                        <p:spacer height="6" />
-                                        <p:separator />
-                                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                                        <p:commandButton update="matchGrid" value="Aceptar" />
-                                        <p:commandButton update="matchGrid" value="Cancelar" />
-                                    </h:form>
-                                </p:dialog> 
-        
-        
-   
+
+    <!--Dialogo modal para iniciar sesión fuera del view ************************************************************************************** -->                
+    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="auto" width="auto">
+        <h:form>
+            <h:panelGrid columns="2" id="matchGrid" cellpadding="5">                   
+                <h:outputLabel value="Usuario: " />
+                <p:inputText placeholder="ej. juanperez15" />
+                <h:outputLabel for="pwd" value="Contraseña: *" />
+                <p:password id="pas" label="Password 2" required="true" />
+            </h:panelGrid>
+            <p:spacer height="6" />
+            <p:separator />
+            <p:messages id="messages" showDetail="true" autoUpdate="true" />
+            <p:commandButton update=":matchGrid" value="Aceptar" />
+            <p:commandButton update=":matchGrid" value="Cancelar" />
+        </h:form>
+    </p:dialog> 
+
+
+
 </html>
 
