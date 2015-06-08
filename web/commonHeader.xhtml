@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+          
+	    <ui:composition>
+                
+		<h:form>  
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <p:tooltip />
+                    <p:menubar >
+                        <p:menuitem value="Home" url="/index.xhtml" icon="ui-icon-home" class="menuitem"/>
+
+                        <f:facet name="options">
+                            <h:form>
+                                <p:growl id="messages" />
+
+                                <p:splitButton value="Aar&oacute;n" onclick="PF('dlg2').show();" actionListener="#{gUIOption.saveMessage()}" update="messages" icon="ui-icon-person">
+                                    <p:menuitem value="Perfil" actionListener="#{gUIOption.error()}" update="messages" icon="ui-icon-arrowrefresh-1-w" />
+                                    
+                                    <p:separator />
+                                    <p:menuitem value="Cerrar sesi&oacute;n" url="http://www.primefaces.org" icon="ui-icon-extlink" />
+                                </p:splitButton>
+                            </h:form>
+                        </f:facet>
+                    </p:menubar>
+                </h:form>
+                
+                <p:row>
+                    <p:column  >
+                        <h:graphicImage value ="/resources/img/logo.png" style="width: 190px;"/>
+                    </p:column>
+                    <p:column >
+                        <h1 style="color: #3366FF!important; text-align: center; font-family: arial; ">RECURSOS HUMANOS</h1>
+                    </p:column>
+                </p:row>                    
+                
+	    </ui:composition>
+        
+    </body>
+</html>

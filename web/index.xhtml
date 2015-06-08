@@ -1,89 +1,60 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--Definiciones
+ui: insert          Se utiliza en el archivo de plantilla, que define el contenido que se va a sustituir por
+                    el archivo que cargue la plantilla. El contenido se puede reemplazar con "ui: define" tag.
+ui: define          Define el contenido que se inserta en la plantilla con un juego "ui: insert" tag.
+ui: include         Similar al de JSP "jsp: include", incluye el contenido de otra página XHTML.
+ui: Composición     Si se utiliza con "plantilla" atributo, se carga la plantilla especificada, y los hijos de esta
+                    etiqueta define el diseño de la plantilla; De lo contrario, es un grupo de elementos, que se 
+                    puede insertar en alguna parte. Además, JSF elimina todo etiquetas "fuera" de la "ui: Composición" tag.
+h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peinar todo el diseño de la página.
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <title>SIG para la Administracion de Recursos Humanos de Sherwin Williams de CA</title>
-            </f:facet>
-            <link href="resources/css/styleSW.css" type="text/css" rel="stylesheet"/>
-        </h:head>
-
-        <h:body>
-            <p:layout fullPage="true"><!--pagina completa funcion de wrapper-->
-                <!-- Header **********************************************************************************************************-->            
-                <p:layoutUnit position="north" size="auto" resizable="false" closable="false" collapsible="true">
-                    <h:form>  
-                        <p:growl id="messages"/>
-                        <p:menubar class="menubar">
-                            <p:menuitem value="Home" url="/index" icon="ui-icon-home" class="menuitem"/>
-
-                            <f:facet name="options">
-                                <p:commandButton type="button" onclick="PF('dlg2').show();" value="Iniciar Sesión" />
-                                <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" class="commandButton"/>
-
-                            </f:facet>
-                        </p:menubar>
-                    </h:form>
-                    <h:panelGrid columns="2" id="matchGrid" cellpadding="5">  
-                        <h:graphicImage value ="/resources/img/logo.png" style="width: 190px;"/>
-                        <h1>RECURSOS HUMANOS</h1>
-                    </h:panelGrid>
-
-                </p:layoutUnit>
-
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true" class="layoutUnit">
-                    Footer
-                </p:layoutUnit>
-
-                <!--<p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-
-                        </p:submenu>
-
-                    </p:menu>
-                </p:layoutUnit> -->
-                <!-- Contenido **********************************************************************************************************-->            
-                <p:layoutUnit position="center">
-
-                    <center>
-                        <p:graphicImage value="resources/img/recursos1.png" class="graphicImage" style="width: auto;"/>
-                    </center>
-                </p:layoutUnit>
-
-            </p:layout>
-
-        </h:body>
-
-    </f:view>
-
-    <!--Dialogo modal para iniciar sesión fuera del view ************************************************************************************** -->                
-    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="auto" width="auto">
-        <h:form>
-            <h:panelGrid columns="2" id="matchGrid" cellpadding="5">                   
-                <h:outputLabel value="Usuario: " />
-                <p:inputText placeholder="ej. juanperez15" />
-                <h:outputLabel for="pwd" value="Contraseña: *" />
-                <p:password id="pas" label="Password 2" required="true" />
-            </h:panelGrid>
-            <p:spacer height="6" />
-            <p:separator />
-            <p:messages id="messages" showDetail="true" autoUpdate="true" />
-            <p:commandButton update=":matchGrid" value="Aceptar" />
-            <p:commandButton update=":matchGrid" value="Cancelar" />
-        </h:form>
-    </p:dialog> 
-
-
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <link href="resources/css/styleSW.css" rel="stylesheet" type="text/css"/>
+       <title>
+           <ui:insert name="title">
+               Incio
+           </ui:insert>
+       </title>
+    </h:head>
+    
+    <h:body>
+        <div id="page">
+	    <div id="header">
+		<ui:insert name="header" >
+		  <ui:include src="commonHeader.xhtml" />
+              
+		</ui:insert>
+	    </div>
+ 
+            <div id="content" style="min-height: 600px">
+	  	<ui:insert name="content" >
+                    <ui:include src="commonContent.xhtml" />
+                    <!--Dialogo modal para iniciar sesión fuera del view ************************************************************************************** -->                
+                    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="100">
+                        <h:outputText value="This is a Modal Dialog." />
+                    </p:dialog> 
+                    
+	   	</ui:insert>
+	    </div>
+ 
+	    <div id="footer" style="min-height: 100px; background-color: #3366FF !important;">
+	    	<ui:insert name="footer" >
+	    	  <ui:include src="commonFooter.xhtml" />
+	    	</ui:insert>
+    	    </div>
+ 
+        </div>
+    </h:body>
 </html>
 
