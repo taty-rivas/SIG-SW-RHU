@@ -17,56 +17,52 @@
                         <h1>RECURSOS HUMANOS</h1>
                     </h:panelGrid>
         <h:form>
-           
             <p:tabView orientation="left">
                 <p:tab title="Rotacion de Personal">
                     <h:panelGrid columns="2" cellpadding="10">
                         <h:form id="form">
                             <p:growl id="msgs" showDetail="true" />
-                            <p:outputLabel for="ini" value="Inicio:" />
-                            <p:calendar id="ini" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha"/>
+                            <p:outputLabel for="finicial" value="Ingrese Fecha Inicial" />
+                            <p:calendar id="finicial" value="#{calendarView.date}" pattern="dd-MM-yyyy" 
+                                        class="fecha" locale="es"  required="true"
+                                        onkeypress="return permite(event, 'none')" 
+                                        requiredMessage="Fecha Inicial Requerida" 
+                                        navigator="true" effect="fadeIn" effectDuration="100">
+                                 <p:ajax event="dateSelect" update="ffinal" />
+                            </p:calendar>
                             <br></br><br></br>
-                            <p:outputLabel for="fin" value="Fin:                              " />
-                            <p:calendar id="fin" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha" />
-                            <p:commandButton value="Mostrar" actionListener="#{rotacionBean.listar()}" update="dtRotacion"/>
-                            <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion">
+                            <p:outputLabel for="ffinal" value="Ingrese Fecha Final" />
+                            <p:calendar id="ffinal" value="#{calendarView.date}"
+                                        pattern="dd-MM-yyyy" class="fecha" 
+                                        mindate="#{calendarView.date}" locale="es" 
+                                        required="true" onkeypress="return permite(event, 'none')" 
+                                        requiredMessage="Fecha Final Requerida" navigator="true"
+                                        effect="fadeIn" effectDuration="100" >
+                                
+                            </p:calendar>
+                            
+                            <br></br><br></br>
+                            <p:commandButton value="Mostrar" actionListener="#{rotacionBean.mostrarRotacion()}" update="dtRotacion"/>
+                            <br></br><br></br>
+                          <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion">
+                              
                                 <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.nombre}"/>
                                 </p:column>
                                 <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.apellido}"/>
                                 </p:column>
+                                <p:column headerText="Motivo" filterBy="#{p.motivo}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.motivo}"/>
+                                </p:column>
                                 <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.area}"/>
                                 </p:column>
-                            
-                            
-                            
-                            
-                            </p:dataTable>
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                       
-                        </h:form>
+                                <p:column headerText="Fecha" filterBy="#{p.fecha}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.fecha}"/>
+                                </p:column>
+                               </p:dataTable>
+                   </h:form>
 
                     </h:panelGrid>
                 </p:tab>
