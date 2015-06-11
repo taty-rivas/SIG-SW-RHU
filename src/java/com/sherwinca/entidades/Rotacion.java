@@ -6,6 +6,8 @@
 
 package com.sherwinca.entidades;
 
+import java.util.Date;
+
 /**
  *
  * @author HP
@@ -13,7 +15,26 @@ package com.sherwinca.entidades;
 public class Rotacion {
     
     String nombre,apellido,area;
+    int motivo;
+    Date fecha;
 
+    public int getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(int motivo) {
+        this.motivo = motivo;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
+    
     public String getNombre() {
         return nombre;
     }
