@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html">  
+        <h:head>
+            <f:facet name="first">
+                <title>SIG para la Administracion de Recursos Humanos de Sherwin Williams de CA</title>
+            </f:facet>
+            <link href="../resources/css/styleSW.css" type="text/css" rel="stylesheet"/>
+
+        </h:head>
+        <h:body>
+            <h:panelGrid columns="2" id="matchGrid" cellpadding="5">  
+                <h:graphicImage value ="/resources/img/logo.png" style="width: 190px;"/>
+                <h1>RECURSOS HUMANOS</h1>
+            </h:panelGrid>
+            <h:form>
+                <p:tabView orientation="left">
+                    <p:tab title="Rotacion de Personal">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:form id="form">
+                                <p:growl id="msgs" showDetail="true" />
+                                <p:outputLabel for="finicial" value="Ingrese Fecha Inicial" />
+                                <p:calendar id="finicial" value="#{rotacionBean.finicial}" pattern="dd-MM-yyyy" 
+                                            class="fecha" locale="es"  required="true"
+                                            onkeypress="return permite(event, 'none')" 
+                                            requiredMessage="Fecha Inicial Requerida" 
+                                            navigator="true" effect="fadeIn" effectDuration="100">
+                                    <p:ajax event="dateSelect" update="ffinal" />
+                                </p:calendar>
+                                <br></br><br></br>
+                                <p:outputLabel for="ffinal" value="Ingrese Fecha Final" />
+                                <p:calendar id="ffinal" value="#{rotacionBean.ffinal}"
+                                            pattern="dd-MM-yyyy" class="fecha" 
+                                            mindate="#{rotacionBean.finicial}" locale="es" 
+                                            required="true" 
+                                            requiredMessage="Fecha Final Requerida" navigator="true"
+                                            effect="fadeIn" effectDuration="100" >
+
+                                    <f:validator validatorId="primeDateRangeValidator" />
+                                </p:calendar>
+
+                                <br></br><br></br>
+                            <p:commandButton value="Mostrar" actionListener="#{rotacionBean.mostrarRotacion()}" update="dtRotacion"/>
+                                <br></br><br></br>
+                                <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                                <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion"  emptyMessage="No se han encontrado resultados">
+
+                                    <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.nombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.apellido}"/>
+                                    </p:column>
+                                    <p:column headerText="Motivo" filterBy="#{p.motivo}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.motivo}"/>
+                                    </p:column>
+                                    <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.area}"/>
+                                    </p:column>
+                                    <p:column headerText="Fecha" filterBy="#{p.fecha}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.fecha}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                          
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Costo de Capacitaciones">
+                        <h:panelGrid columns="2" cellpadding="10">
+
+                            <h:outputText
+                                value="The story begins as Don Vito Corleone..." />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Contrataciones">
+                        <h:panelGrid columns="2" cellpadding="10">
+
+                            <h:outputText
+                                value="The story begins as Don Vito Corleone..." />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Ausencias">
+                        <h:panelGrid columns="2" cellpadding="10">
+
+                            <h:outputText
+                                value="The story begins as Don Vito Corleone..." />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title=" Presupuesto por Area">
+                        <h:panelGrid columns="2" cellpadding="10">
+
+                            <h:outputText
+                                value="The story begins as Don Vito Corleone..." />
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+

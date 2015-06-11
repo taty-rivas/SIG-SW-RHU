@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sherwinca.entidades.SigModulo" table="sig_modulo" schema="sig_rhu_sw">
+        <id name="SPkModulo" type="int">
+            <column name="s_pk_modulo" />
+            <generator class="assigned" />
+        </id>
+        <property name="vcNmbModulo" type="string">
+            <column name="vc_nmb_modulo" length="50" not-null="true" />
+        </property>
+        <property name="vcUrlModulo" type="string">
+            <column name="vc_url_modulo" length="350" not-null="true" />
+        </property>
+        <property name="vcDescripcionModulo" type="string">
+            <column name="vc_descripcion_modulo" length="50" />
+        </property>
+        <set name="sigPerfileses" table="sig_tienepermisoa" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="s_pk_modulo" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.sherwinca.entidades.SigPerfiles">
+                <column name="s_pk_perfil" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

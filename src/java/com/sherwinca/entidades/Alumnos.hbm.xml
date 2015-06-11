@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-01-2015 11:32:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sherwinca.entidades.Alumnos" table="alumnos" schema="public">
+        <id name="idalumno" type="int">
+            <column name="idalumno" />
+            <generator class="increment"></generator>
+        </id>
+        <property name="nombres" type="string">
+            <column name="nombres" length="200" />
+        </property>
+        <property name="aplellidos" type="string">
+            <column name="aplellidos" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>
