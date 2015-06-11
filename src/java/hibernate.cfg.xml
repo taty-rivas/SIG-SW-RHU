@@ -7,6 +7,7 @@
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/sherwin</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">sig123</property>
+    <mapping resource="com/sherwinca/entidades/Alumnos.hbm.xml"/>
     <mapping resource="com/sherwinca/entidades/SigRotacionrrhh.hbm.xml"/>
     <mapping resource="com/sherwinca/entidades/SigInversioninsaforp.hbm.xml"/>
     <mapping resource="com/sherwinca/entidades/SigAltasbajas.hbm.xml"/>
