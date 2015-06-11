@@ -6,33 +6,50 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns="http://www.w3.org/1999/xhtml" >
     <ui:define name="title">
-        Tactico
+        T&aacute;ctico
     </ui:define>
  
     <ui:define name="content">
-        
+        <h:outputScript library="js" name="calendar_es.js" /> 
         <h:form>
 
                 <p:tabView orientation="left">
-                    <p:tab title="Rotacion de Personal">
+                    <p:tab title="Personal disponible">
                         <h:panelGrid columns="2" cellpadding="10">
                             <h:form id="form">
                                 <p:growl id="msgs" showDetail="true" />
-                                <p:outputLabel for="ini" value="Inicio:" />
-                                <p:calendar id="ini" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha" locale="es"/>
-                                <br></br><br></br>
-                                <p:outputLabel for="fin" value="Fin:                              " />
-                                <p:calendar id="fin" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha" />
-                                <p:commandButton value="Mostrar" actionListener="#{rotacionBean.listar()}" update="dtRotacion"/>
-                                <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion">
-                                    <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.nombre}"/>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="ini" value="Inicio:" />
+                                        <p:calendar id="ini" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha" locale="es"/>
                                     </p:column>
-                                    <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.apellido}"/>
+                                    <p:column>
+                                        <p:outputLabel for="fin" value="Fin:                              " />
+                                        <p:calendar id="fin" value="#{calendarView.date}" pattern="dd-MM-yyyy" class="fecha" />
                                     </p:column>
-                                    <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.area}"/>
+                                    <p:column>
+                                        <!--ACCION PARA LLENAR LA TABLA -->
+                                        <p:commandButton value="Mostrar" actionListener="#{personalDisponibleBean.listar()}" update="dtRotacion"/>
+                                    </p:column>
+                                </p:row>
+                                                                
+                                <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
+                                <p:dataTable value="#{personalDisponibleBean.lista}" var="p" id="dtRotacion" style="margin-top:10px;">
+                                    <p:column headerText="No." filterBy="#{p.SPkDisponible}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.SPkDisponible}"/>
+                                    </p:column>
+                                    <p:column headerText="Nombres" filterBy="#{p.vcNmbempDisponible}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.vcNmbempDisponible}"/>
+                                    </p:column>
+                                    <p:column headerText="Apellidos" filterBy="#{p.vcApDisponible}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.vcApDisponible}"/>
+                                    </p:column>
+                                    
+                                    <p:column headerText="Mes" filterBy="#{p.vcMesDisponible}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.vcMesDisponible}"/>
+                                    </p:column>
+                                    <p:column headerText="Area" filterBy="#{p.vcAreaDisponible}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.vcAreaDisponible}" />
                                     </p:column>
 
                                 </p:dataTable>
@@ -41,27 +58,27 @@
 
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Costo de Capacitaciones">
+                    <p:tab title="Permisos al limite">
                         <h:panelGrid columns="2" cellpadding="10">
 
                             
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Contrataciones">
+                    <p:tab title="Capacitaciones">
                         <h:panelGrid columns="2" cellpadding="10">
 
                             <h:outputText
                                 value="The story begins as Don Vito Corleone..." />
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Ausencias">
+                    <p:tab title="Altas y bajas">
                         <h:panelGrid columns="2" cellpadding="10">
 
                             <h:outputText
                                 value="The story begins as Don Vito Corleone..." />
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title=" Presupuesto por Area">
+                    <p:tab title="Expedientes de faltas">
                         <h:panelGrid columns="2" cellpadding="10">
 
                             <h:outputText

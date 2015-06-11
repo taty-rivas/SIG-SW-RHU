@@ -32,14 +32,14 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
         <div id="page">
 	    <div id="header">
 		<ui:insert name="header" >
-		  <ui:include src="commonHeader.xhtml" />
+		  <ui:include src="/tempart/commonHeader.xhtml" />
               
 		</ui:insert>
 	    </div>
  
             <div id="content" style="min-height: 600px">
 	  	<ui:insert name="content" >
-                    <ui:include src="commonContent.xhtml" />
+                    <ui:include src="/tempart/commonContent.xhtml" />
                     <!--Dialogo modal para iniciar sesión fuera del view ************************************************************************************** -->                
                     <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="100">
                         <h:outputText value="This is a Modal Dialog." />
@@ -50,7 +50,7 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
  
 	    <div id="footer" style="min-height: 100px; background-color: #3366FF !important;">
 	    	<ui:insert name="footer" >
-	    	  <ui:include src="commonFooter.xhtml" />
+	    	  <ui:include src="/tempart/commonFooter.xhtml" />
 	    	</ui:insert>
     	    </div>
  
