@@ -1,22 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <f:view contentType="text/html">  
-        <h:head>
-            <f:facet name="first">
-                <title>SIG para la Administracion de Recursos Humanos de Sherwin Williams de CA</title>
-            </f:facet>
-            <link href="../resources/css/styleSW.css" type="text/css" rel="stylesheet"/>
-
-        </h:head>
-        <h:body>
-            <h:panelGrid columns="2" id="matchGrid" cellpadding="5">  
-                <h:graphicImage value ="/resources/img/logo.png" style="width: 190px;"/>
-                <h1>RECURSOS HUMANOS</h1>
-            </h:panelGrid>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">
+        Sherwin Williams C.A | Estrat&eacute;gico.
+    </ui:define>
+ 
+    <ui:define name="content">
+        <h:outputScript library="js" name="calendar_es.js" /> 
             <h:form>
                 <p:tabView orientation="left">
                     <p:tab title="Rotacion de Personal">
@@ -99,7 +94,6 @@
                     </p:tab>
                 </p:tabView>
             </h:form>
-        </h:body>
-    </f:view>
-</html>
+        </ui:define> 
+</ui:composition>
 
