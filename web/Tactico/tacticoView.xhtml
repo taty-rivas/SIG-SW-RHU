@@ -21,8 +21,8 @@
                                 <p:growl id="msgs" showDetail="true" />
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Mes:" />
-                                        <p:selectOneMenu value="#{personalDisponibleBean.vcMes}">  
+                                        <p:outputLabel for="mes" value="Mes:" />
+                                        <p:selectOneMenu id="mes" value="#{personalDisponibleBean.vcMes}" >  
                                             <f:selectItem itemLabel="Seleccione " itemValue="" />  
                                             <f:selectItem itemLabel="Enero" itemValue="mes1" />  
                                             <f:selectItem itemLabel="Febrero" itemValue="mes2" />  
@@ -41,35 +41,34 @@
                                     <p:column>
                                         <p:outputLabel for="anio" value="A&ntilde;o: " />
                                         <p:selectOneMenu id="anio" value="#{personalDisponibleBean}">  
-                                            <f:selectItem itemLabel="Select One" itemValue="" />  
-                                            <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
-                                            <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
-                                            <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
+                                            <f:selectItem value="#{personalDisponibleBean.listarAnios()}" />
                                         </p:selectOneMenu> 
                                     </p:column>
                                     <p:column>
                                         <!--ACCION PARA LLENAR LA TABLA -->
-                                        <p:commandButton value="Mostrar" actionListener="#{personalDisponibleBean.listar()}" update="dtRotacion"/>
+                                        <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
                                     </p:column>
                                 </p:row>
                                                                 
                                <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                                <p:dataTable value="#{personalDisponibleBean.lista}" var="p" id="dtRotacion" style="margin-top:10px;">
-                                    <p:column headerText="No." filterBy="#{p.SPkDisponible}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.SPkDisponible}"/>
+                                <p:dataTable value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px;" paginator="true" rows="10"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15"> 
+                                      <f:facet name="header">  
+                                            Personal disponible   
+                                       </f:facet>  
+                                    <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.nombre}"/>
                                     </p:column>
-                                    <p:column headerText="Nombres" filterBy="#{p.vcNmbempDisponible}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.vcNmbempDisponible}"/>
-                                    </p:column>
-                                    <p:column headerText="Apellidos" filterBy="#{p.vcApDisponible}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.vcApDisponible}"/>
+                                    <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.apellido}"/>
                                     </p:column>
                                     
-                                    <p:column headerText="Mes" filterBy="#{p.vcMesDisponible}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.vcMesDisponible}"/>
+                                    <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.mes}"/>
                                     </p:column>
-                                    <p:column headerText="Area" filterBy="#{p.vcAreaDisponible}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.vcAreaDisponible}" />
+                                    <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                                        <p:outputLabel value="#{p.area}" />
                                     </p:column>
 
                                 </p:dataTable>

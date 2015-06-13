@@ -11,14 +11,10 @@ import com.sherwinca.entidades.Disponible;
 import com.sherwinca.entidades.HibernateUtil;
 import com.sherwinca.entidades.SigPersonaldisponible;
 import java.io.Serializable;
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -33,8 +29,9 @@ import org.hibernate.Session;
 public class personalDisponibleBean implements Serializable{
     
     private List<Disponible> lista = new ArrayList();
+    private List<String> listaAnios = new ArrayList();
     private String vcMes; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
-    private int iAnio; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
+    private String iAnio; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
     
      public personalDisponibleBean() { /*CONSTRUCTOR*/
     }
@@ -55,28 +52,28 @@ public class personalDisponibleBean implements Serializable{
         this.vcMes = vcMes;
     }
 
-    public int getiAnio() {
+    public String getiAnio() {
         return iAnio;
     }
 
-    public void setiAnio(int iAnio) {
+    public void setiAnio(String iAnio) {
         this.iAnio = iAnio;
     }
 
-    
-     
-     
-    
- 
+   
+
+
     public void listar(){
         Session session = null;
         List<SigPersonaldisponible> list = null;
   
         try {            
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SigPersonaldisponible r where r.vc_mes_disponible like'"+vcMes+"' AND r.i_anio_disponible ='"+iAnio+"'" );            
+            Query query = session.createQuery("from SigPersonaldisponible r where r.vcMesDisponible=:mes AND r.iAnioDisponible =:anio" );
+            query.setParameter("mes", vcMes);
+            query.setParameter("anio", iAnio);
             list = (List<SigPersonaldisponible>) query.list();
-            
+            lista.clear();
             for (SigPersonaldisponible elem : list) {            
                 Disponible row = new Disponible();                              
                 row.setNombre(elem.getVcNmbempDisponible());
@@ -95,7 +92,28 @@ public class personalDisponibleBean implements Serializable{
         }
     
     }
-    
+     public void listarAnios(){
+         Session session = null;
+        List<SigPersonaldisponible> list2 = null;
+        
+  
+        try {            
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SigPersonaldisponible r order by r.iAnioDisponible" );
+            
+            list2 = (List<SigPersonaldisponible>) query.list();
+            lista.clear();
+            for (SigPersonaldisponible elem : list2) {            
+                
+                listaAnios.add(String.valueOf(elem.getiAnioDisponible()));
+
+            }
+
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+        }
+     }
     
     
     /**
