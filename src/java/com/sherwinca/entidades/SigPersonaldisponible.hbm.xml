@@ -14,14 +14,17 @@
         <property name="vcApDisponible" type="string">
             <column name="vc_ap_disponible" length="50" not-null="true" />
         </property>
-        <property name="dtHoraDisponible" type="date">
-            <column name="dt_hora_disponible" length="13" not-null="true" />
+        <property name="iHoraDisponible" type="int">
+            <column name="i_hora_disponible"  not-null="true" />
         </property>
         <property name="vcMesDisponible" type="string">
             <column name="vc_mes_disponible" length="50" not-null="true" />
         </property>
         <property name="vcAreaDisponible" type="string">
             <column name="vc_area_disponible" length="50" not-null="true" />
+        </property>
+        <property name="iAnioDisponible" type="int">
+            <column name="i_anio_disponible"  not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

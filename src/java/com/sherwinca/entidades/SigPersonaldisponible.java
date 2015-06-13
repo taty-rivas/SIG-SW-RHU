@@ -13,20 +13,22 @@ public class SigPersonaldisponible  implements java.io.Serializable {
      private int SPkDisponible;
      private String vcNmbempDisponible;
      private String vcApDisponible;
-     private Date dtHoraDisponible;
+     private int iHoraDisponible;
      private String vcMesDisponible;
      private String vcAreaDisponible;
+     private int iAnioDisponible;
 
     public SigPersonaldisponible() {
     }
 
-    public SigPersonaldisponible(int SPkDisponible, String vcNmbempDisponible, String vcApDisponible, Date dtHoraDisponible, String vcMesDisponible, String vcAreaDisponible) {
+    public SigPersonaldisponible(int SPkDisponible, String vcNmbempDisponible, String vcApDisponible, int iHoraDisponible, String vcMesDisponible, String vcAreaDisponible, int iAnioDisponible) {
        this.SPkDisponible = SPkDisponible;
        this.vcNmbempDisponible = vcNmbempDisponible;
        this.vcApDisponible = vcApDisponible;
-       this.dtHoraDisponible = dtHoraDisponible;
+       this.iHoraDisponible = iHoraDisponible;
        this.vcMesDisponible = vcMesDisponible;
        this.vcAreaDisponible = vcAreaDisponible;
+       this.iAnioDisponible = iAnioDisponible;
     }
    
     public int getSPkDisponible() {
@@ -50,12 +52,12 @@ public class SigPersonaldisponible  implements java.io.Serializable {
     public void setVcApDisponible(String vcApDisponible) {
         this.vcApDisponible = vcApDisponible;
     }
-    public Date getDtHoraDisponible() {
-        return this.dtHoraDisponible;
+    public int getiHoraDisponible() {
+        return this.iHoraDisponible;
     }
     
-    public void setDtHoraDisponible(Date dtHoraDisponible) {
-        this.dtHoraDisponible = dtHoraDisponible;
+    public void setiHoraDisponible(int iHoraDisponible) {
+        this.iHoraDisponible = iHoraDisponible;
     }
     public String getVcMesDisponible() {
         return this.vcMesDisponible;
@@ -71,7 +73,12 @@ public class SigPersonaldisponible  implements java.io.Serializable {
     public void setVcAreaDisponible(String vcAreaDisponible) {
         this.vcAreaDisponible = vcAreaDisponible;
     }
-
+    public int getiAnioDisponible(){
+        return this.iAnioDisponible;
+    }
+    public void setiAnioDisponible(int iAnioDisponible){
+        this.iAnioDisponible = iAnioDisponible;
+    }
 
 
 
