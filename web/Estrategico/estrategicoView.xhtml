@@ -9,91 +9,142 @@
     <ui:define name="title">
         Sherwin Williams C.A | Estrat&eacute;gico.
     </ui:define>
- 
+
     <ui:define name="content">
         <h:outputScript library="js" name="calendar_es.js" /> 
-            <h:form>
-                <p:tabView orientation="left">
-                    <p:tab title="Rotacion de Personal">
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <h:form id="form">
-                                <p:growl id="msgs" showDetail="true" />
-                                <p:outputLabel for="finicial" value="Ingrese Fecha Inicial" />
-                                <p:calendar id="finicial" value="#{rotacionBean.finicial}" pattern="dd-MM-yyyy" 
-                                            class="fecha" locale="es"  required="true"
-                                            onkeypress="return permite(event, 'none')" 
-                                            requiredMessage="Fecha Inicial Requerida" 
-                                            navigator="true" effect="fadeIn" effectDuration="100">
-                                    <p:ajax event="dateSelect" update="ffinal" />
-                                </p:calendar>
-                                <br></br><br></br>
-                                <p:outputLabel for="ffinal" value="Ingrese Fecha Final" />
-                                <p:calendar id="ffinal" value="#{rotacionBean.ffinal}"
-                                            pattern="dd-MM-yyyy" class="fecha" 
-                                            mindate="#{rotacionBean.finicial}" locale="es" 
+        <h:form>
+            <p:tabView orientation="left">
+                <p:tab title="Rotacion de Personal">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:form id="form">
+                            <p:growl id="msgs" showDetail="true" />
+                            <p:outputLabel for="finicial" value="Ingrese Fecha Inicial" />
+                            <p:calendar id="finicial" value="#{rotacionBean.finicial}" pattern="dd-MM-yyyy" 
+                                        class="fecha" locale="es"  required="true"
+                                        onkeypress="return permite(event, 'none')" 
+                                        requiredMessage="Fecha Inicial Requerida" 
+                                        navigator="true" effect="fadeIn" effectDuration="100">
+                                <p:ajax event="dateSelect" update="ffinal" />
+                            </p:calendar>
+                            
+                            <p:column>
+                                <p:outputLabel for="fin" value="Fin:" />
+                                <p:calendar id="fin" value="#{rotacionBean.fin}" pattern="dd-MM-yyyy"
+                                            class="fecha" mindate="#{rotacionBean.ini}" locale="es" 
                                             required="true" 
-                                            requiredMessage="Fecha Final Requerida" navigator="true"
-                                            effect="fadeIn" effectDuration="100" >
+                                            requiredMessage="Fecha Final Requerida"
+                                            />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Mostrar" action="#{rotacionBean.mostrarRotacion()}" 
+                                                 update="dtRotacion"/>
+                            </p:column>
+                            <p:column>
+                                <h:commandLink  id="pdfexport">
+                                    <h:graphicImage url="../resources/img/pdf.png"/>
+                                    <p:dataExporter type="pdf" target="dtRotacion" 
+                                                    fileName="Rotacion-Personal" 
+                                                    encoding="windows-1250" preProcessor="#{FileExportProcessor.preProcessPDF}"/>
+                                </h:commandLink>
 
-                                    <f:validator validatorId="primeDateRangeValidator" />
-                                </p:calendar>
+                            </p:column>
+                            
+                            <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion" 
+                                         emptyMessage="No se han encontrado resultados">
+                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.apellido}"/>
+                                </p:column>
+                                <p:column headerText="Motivo" filterBy="#{p.motivo}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.motivo}"/>
+                                </p:column>
+                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.area}"/>
+                                </p:column>
+                                <p:column headerText="Fecha" filterBy="#{p.fecha}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.fecha}"/>
+                                </p:column>
+                            </p:dataTable>
 
-                                <br></br><br></br>
-                            <p:commandButton value="Mostrar" actionListener="#{rotacionBean.mostrarRotacion()}" update="dtRotacion"/>
-                                <br></br><br></br>
-                                <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-                                <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion"  emptyMessage="No se han encontrado resultados">
 
-                                    <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.nombre}"/>
-                                    </p:column>
-                                    <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.apellido}"/>
-                                    </p:column>
-                                    <p:column headerText="Motivo" filterBy="#{p.motivo}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.motivo}"/>
-                                    </p:column>
-                                    <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.area}"/>
-                                    </p:column>
-                                    <p:column headerText="Fecha" filterBy="#{p.fecha}" filterMatchMode="contains">
-                                        <p:outputLabel value="#{p.fecha}"/>
-                                    </p:column>
-                                </p:dataTable>
-                            </h:form>
-                          
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Costo de Capacitaciones">
-                        <h:panelGrid columns="2" cellpadding="10">
+                        </h:form>
+                    </h:panelGrid>
+                    
+                </p:tab>
+                
+                <p:tab title="Inversion INSAFORP">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:form id="form-2">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel for="ini" value="Año 1:" />
+                                    <p:calendar id="ini" value="#{rotacionBean.ini}"
+                                                pattern="dd-MM-yyyy" class="fecha" locale="es"
+                                                required="true" requiredMessage="Fecha Inicial Requerida" 
+                                                >
+                                        <p:ajax event="dateSelect" update="fin" />
+                                    </p:calendar>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel for="fin" value="Año 2:" />
+                                    <p:calendar id="fin" value="#{rotacionBean.fin}" pattern="dd-MM-yyyy"
+                                                class="fecha" mindate="#{rotacionBean.ini}" locale="es" 
+                                                required="true" 
+                                                requiredMessage="Fecha Final Requerida"
+                                                />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Mostrar" action="#{insaforpBean.mostrarCapacitaciones()}" 
+                                                     update="dtCapacitaciones"/>
+                                </p:column>
+                                <p:column>
+                                    <h:commandLink  id="pdfexport">
+                                        <h:graphicImage url="../resources/img/pdf.png"/>
+                                        <p:dataExporter type="pdf" target="dtRotacion" 
+                                                        fileName="Rotacion-Personal" 
+                                                        encoding="windows-1250" preProcessor="#{FileExportProcessor}"/>
+                                    </h:commandLink>
 
-                            <h:outputText
-                                value="The story begins as Don Vito Corleone..." />
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Contrataciones">
-                        <h:panelGrid columns="2" cellpadding="10">
+                                </p:column>
+                            </p:row>
+                            <p:dataTable value="#{InsaforpBean.lista}" var="c" id="dtCapacitaciones" 
+                                         emptyMessage="No se han encontrado resultados">
 
-                            <h:outputText
-                                value="The story begins as Don Vito Corleone..." />
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Ausencias">
-                        <h:panelGrid columns="2" cellpadding="10">
+                                <p:column headerText="Area" filterBy="#{c.area}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{c.area}"/>
+                                </p:column>
+                                <p:column headerText="Inversion($)" filterBy="#{c.inversion}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{c.inversion}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Contrataciones">
+                    <h:panelGrid columns="2" cellpadding="10">
 
-                            <h:outputText
-                                value="The story begins as Don Vito Corleone..." />
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title=" Presupuesto por Area">
-                        <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Ausencias">
+                    <h:panelGrid columns="2" cellpadding="10">
 
-                            <h:outputText
-                                value="The story begins as Don Vito Corleone..." />
-                        </h:panelGrid>
-                    </p:tab>
-                </p:tabView>
-            </h:form>
-        </ui:define> 
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title=" Presupuesto por Area">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
 </ui:composition>
 

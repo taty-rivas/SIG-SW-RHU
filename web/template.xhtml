@@ -51,7 +51,7 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
                                     <p:outputLabel value="Contraseña" for="password"/>
                                     <p:password value="#{loginBean.password}" id="password" required="true" requiredMessage="Escriba una contraseña"/>
                                 </p:panelGrid>
-                                <p:commandButton  value="Iniciar" actionListener="#{loginBean.iniciarSesion()}" update=":barraprincipal"/>
+                                <p:commandButton  value="Iniciar" action="#{loginBean.iniciarSesion()}" update=":barraprincipal"/>
                             </p:panel>
                         </h:form>
 

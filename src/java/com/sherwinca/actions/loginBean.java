@@ -31,14 +31,14 @@ public class loginBean implements Serializable {
     private String username;
     private String password;
     private String tituloBarra;
-    private final static String USER_DEFAULT_MSG="Iniciar Sesión";
+    private final static String USER_DEFAULT_MSG = "Iniciar Sesión";
 
     /**
      * Creates a new instance of loginBean
      */
     public loginBean() {
         user = new SigUsuario();
-        tituloBarra=USER_DEFAULT_MSG;
+        tituloBarra = USER_DEFAULT_MSG;
     }
 
     public void cerrarDialog() {
@@ -46,15 +46,15 @@ public class loginBean implements Serializable {
         rc.execute("dlg2.hide()");
     }
 
-    public void cambiar(){
+    public void cambiar() {
         setTituloBarra(username);
     }
-    
-    public void cerrarSesion(){
+
+    public void cerrarSesion() {
         setTituloBarra(USER_DEFAULT_MSG);
-        
+
     }
-    
+
     public String iniciarSesion() {
         Session session = null;
         List<SigUsuario> list = null;
@@ -67,16 +67,20 @@ public class loginBean implements Serializable {
                 errorUsuario();
                 return "";
             } else {
-                if (user.getVcPasswordUsuario().equals(password)){
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.getExternalContext().getSessionMap().put("Usuario", user);
-                return "case1";
-                }else{
+                if (user.getVcPasswordUsuario().equals(password)) {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.getExternalContext().getSessionMap().put("Usuario", user);
+                    if (user.getSigPerfiles().getSPkPerfil() == 1) {
+                        return "estrategico";
+                    } else {
+                        return "";
+                    }
+                } else {
                     errorPassword();
                     return "";
-                    
+
                 }
-                
+
             }
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
@@ -92,9 +96,10 @@ public class loginBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, Usuario no encontrado en el sistema", null));
     }
 
-     public void errorPassword() {
+    public void errorPassword() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, Password invalido", null));
     }
+
     /**
      * @return the user
      */
