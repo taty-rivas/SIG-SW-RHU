@@ -7,11 +7,22 @@
 package com.sherwinca.actions;
 
 
+import com.sherwinca.entidades.Disponible;
+import com.sherwinca.entidades.HibernateUtil;
+import com.sherwinca.entidades.SigPersonaldisponible;
+import java.io.Serializable;
+
 import java.util.ArrayList;
+
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import com.sherwinca.entidades.SigPersonaldisponible;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 
 /**
  *
@@ -19,49 +30,77 @@ import com.sherwinca.entidades.SigPersonaldisponible;
  */
 @ManagedBean
 @ViewScoped
-public class personalDisponibleBean {
-     private static List<SigPersonaldisponible> lista = new ArrayList();
+public class personalDisponibleBean implements Serializable{
+    
+    private List<Disponible> lista = new ArrayList();
+    private String vcMes; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
+    private int iAnio; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
+    
+     public personalDisponibleBean() { /*CONSTRUCTOR*/
+    }
 
-    public  List<SigPersonaldisponible> getLista() {
+    public List<Disponible> getLista() {
         return lista;
     }
 
-    public void setLista(List<SigPersonaldisponible> lista) {
+    public void setLista(List<Disponible> lista) {
         this.lista = lista;
     }
-    
-    public void listar(){
-        SigPersonaldisponible rot = new SigPersonaldisponible ();
-        /*PARA LLENAR LA LISTA HAREMOS CICLOS PARA CADA UNO DE LOS CAMPOS */
-        
-        
-        
-        rot.setSPkDisponible(20);
-        rot.setVcNmbempDisponible("Carlos");
-        rot.setVcApDisponible("Vasquez solis");
-       /* rot.setDtHoraDisponible("03-25-2015");*/
-        rot.setVcMesDisponible("Abril");
-        rot.setVcAreaDisponible("Ventas");
-      
-        
-        lista.add(rot);
-        
-        rot = new SigPersonaldisponible ();
-        
-        rot.setSPkDisponible(20);
-        rot.setVcNmbempDisponible("Miguel");
-        rot.setVcApDisponible("Marchelli hernandes");
-       /* rot.setDtHoraDisponible("03-25-2015");*/
-        rot.setVcMesDisponible("Abril");
-        rot.setVcAreaDisponible("Ventas");
-        
-        lista.add(rot);
+
+    public String getVcMes() {
+        return vcMes;
     }
+
+    public void setVcMes(String vcMes) {
+        this.vcMes = vcMes;
+    }
+
+    public int getiAnio() {
+        return iAnio;
+    }
+
+    public void setiAnio(int iAnio) {
+        this.iAnio = iAnio;
+    }
+
+    
+     
+     
+    
+ 
+    public void listar(){
+        Session session = null;
+        List<SigPersonaldisponible> list = null;
+  
+        try {            
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SigPersonaldisponible r where r.vc_mes_disponible like'"+vcMes+"' AND r.i_anio_disponible ='"+iAnio+"'" );            
+            list = (List<SigPersonaldisponible>) query.list();
+            
+            for (SigPersonaldisponible elem : list) {            
+                Disponible row = new Disponible();                              
+                row.setNombre(elem.getVcNmbempDisponible());
+                row.setApellido(elem.getVcApDisponible());
+                row.setArea(elem.getVcAreaDisponible());
+                row.setHoras(elem.getiHoraDisponible());
+                row.setMes(elem.getVcMesDisponible());
+                
+                lista.add(row);
+
+            }
+
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+        }
+    
+    }
+    
+    
+    
     /**
      * Creates a new instance of personalDisponibleBean
      */
-    public personalDisponibleBean() {
-        SigPersonaldisponible disponible = new SigPersonaldisponible();
-    }
+   
     
 }
