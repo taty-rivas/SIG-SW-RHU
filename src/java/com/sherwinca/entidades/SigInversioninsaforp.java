@@ -18,7 +18,8 @@ public class SigInversioninsaforp  implements java.io.Serializable {
     public SigInversioninsaforp() {
     }
 
-    public SigInversioninsaforp(int SPkInversion, String vcNmbuniInversion, BigDecimal DMontoInversion, int IAnioInversion) {
+    public SigInversioninsaforp(int SPkInversion, String vcNmbuniInversion,
+            BigDecimal DMontoInversion, int IAnioInversion) {
        this.SPkInversion = SPkInversion;
        this.vcNmbuniInversion = vcNmbuniInversion;
        this.DMontoInversion = DMontoInversion;

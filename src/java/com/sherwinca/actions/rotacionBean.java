@@ -28,7 +28,7 @@ import org.primefaces.event.SelectEvent;
 public class rotacionBean implements Serializable {
 
     private static List<Rotacion> lista = new ArrayList();
-    private Date finicial,ffinal;
+    private Date ini,fin;
 
     /**
      * Creates a new instance of rotacionBean
@@ -36,23 +36,24 @@ public class rotacionBean implements Serializable {
     public rotacionBean() {
     }
 
-    public Date getFinicial() {
-        return finicial;
+    public Date getIni() {
+        return ini;
     }
 
-    public void setFinicial(Date finicial) {
-        this.finicial = finicial;
+    public void setIni(Date ini) {
+        this.ini = ini;
     }
 
-    public Date getFfinal() {
-        return ffinal;
+    public Date getFin() {
+        return fin;
     }
 
-    public void setFfinal(Date ffinal) {
-        this.ffinal = ffinal;
+    public void setFin(Date fin) {
+        this.fin = fin;
     }
-    
-    
+
+
+   
 
     public List<Rotacion> getLista() {
         return lista;
@@ -89,16 +90,18 @@ public class rotacionBean implements Serializable {
     }
     
     public void mostrarRotacion(){
-        Session session = null;
-        List<SigRotacionrrhh> list = null;
+        
+        Session session;
+        List<SigRotacionrrhh> list;
         String DatePattern = "yyyy-MM-dd";
         SimpleDateFormat df = new SimpleDateFormat(DatePattern);
-        String startDate = df.format(finicial);
-        String endDate = df.format(ffinal);
+        String startDate = df.format(ini);
+        String endDate = df.format(fin);
         try {
             
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SigRotacionrrhh r where r.dtRotRotrrhh BETWEEN '"+startDate+"' AND '"+endDate+"'" );
+            Query query = session.createQuery("from SigRotacionrrhh r where "
+                    + "r.dtRotRotrrhh BETWEEN '"+startDate+"' AND '"+endDate+"'" );
             
             list = (List<SigRotacionrrhh>) query.list();
 
@@ -107,11 +110,20 @@ public class rotacionBean implements Serializable {
                 Rotacion rot = new Rotacion();
                 rot.setNombre(elem.getVcNmbRotrrhh());
                 rot.setApellido(elem.getVcApRotrrhh());
-                rot.setMotivo(elem.getITiporotRotrrhh());
                 rot.setArea(elem.getVcAreaRotrrhh());
                 rot.setFecha(elem.getDtRotRotrrhh());
-
-                lista.add(rot);
+                
+                switch(elem.getITiporotRotrrhh()){
+                    case 0:
+                          rot.setMotivo("Despido");
+                          break;
+                    case 1:
+                           rot.setMotivo("Contratacion");
+                           break;
+                    case 2:
+                          rot.setMotivo("Cambio de Area");
+                }
+               lista.add(rot);
 
             }
 
@@ -121,4 +133,5 @@ public class rotacionBean implements Serializable {
         }
 
     }
+    
 }
