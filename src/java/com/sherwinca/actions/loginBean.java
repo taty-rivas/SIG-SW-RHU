@@ -31,14 +31,14 @@ public class loginBean implements Serializable {
     private String username;
     private String password;
     private String tituloBarra;
-    private final static String USER_MSG="Iniciar Sesión";
+    private final static String USER_DEFAULT_MSG="Iniciar Sesión";
 
     /**
      * Creates a new instance of loginBean
      */
     public loginBean() {
         user = new SigUsuario();
-        tituloBarra=USER_MSG;
+        tituloBarra=USER_DEFAULT_MSG;
     }
 
     public void cerrarDialog() {
@@ -51,7 +51,7 @@ public class loginBean implements Serializable {
     }
     
     public void cerrarSesion(){
-        setTituloBarra("Iniciar Sesión");
+        setTituloBarra(USER_DEFAULT_MSG);
         
     }
     
