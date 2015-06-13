@@ -12,19 +12,20 @@
  
     <ui:define name="content">
         <h:outputScript library="js" name="calendar_es.js" /> 
-            <h:form>
-                <p:tabView orientation="left">
-                    <p:tab title="Rotacion de Personal">
+        <p:tabView orientation="left">
+            <p:tab title="Rotacion de Personal">
                         <h:panelGrid columns="2" cellpadding="10">
-                            <h:form id="form">
+                            <h:form id="form-1">
                                 <p:growl id="msgs" showDetail="true" />
-                                <p:outputLabel for="finicial" value="Ingrese Fecha Inicial" />
-                                <p:calendar id="finicial" value="#{rotacionBean.finicial}" pattern="dd-MM-yyyy" 
+                                 <p:row>
+                                <p:column>
+                                <p:outputLabel for="ini" value="Ingrese Fecha Inicial" />
+                                <p:calendar id="ini" value="#{rotacionBean.ini}" pattern="dd-MM-yyyy" 
                                             class="fecha" locale="es"  required="true"
                                             onkeypress="return permite(event, 'none')" 
                                             requiredMessage="Fecha Inicial Requerida" 
-                                            navigator="true" effect="fadeIn" effectDuration="100">
-                                    <p:ajax event="dateSelect" update="ffinal" />
+                                            >
+                                    <p:ajax event="dateSelect" update="fin" />
                                 </p:calendar>
                             </p:column>
                             <p:column>
@@ -33,7 +34,7 @@
                                             class="fecha" mindate="#{rotacionBean.ini}" locale="es" 
                                             required="true" 
                                             requiredMessage="Fecha Final Requerida"
-                                            />
+                                            />    
                            </p:column>
                             <p:column>
                                 <p:commandButton value="Mostrar" action="#{rotacionBean.mostrarRotacion()}" 
@@ -50,7 +51,13 @@
                             </p:column>
                         </p:row>
                         <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion" 
-                                     emptyMessage="No se han encontrado resultados">
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="10"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                        rowsPerPageTemplate="5,10,15">
+                             <f:facet name="header">  
+                                            Rotacion de Personal.
+                                       </f:facet>
                             <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
                                 <p:outputLabel value="#{p.nombre}"/>
                             </p:column>
@@ -72,44 +79,38 @@
                     </h:form>
                 </h:panelGrid>
             </p:tab>
+            
             <p:tab title="Inversion INSAFORP">
                 <h:panelGrid columns="2" cellpadding="10">
                       <h:form id="form-2">
                         <p:row>
                             <p:column>
-                                <p:outputLabel for="ini" value="Año 1:" />
-                                <p:calendar id="ini" value="#{rotacionBean.ini}"
-                                            pattern="dd-MM-yyyy" class="fecha" locale="es"
-                                            required="true" requiredMessage="Fecha Inicial Requerida" 
-                                            >
-                                    <p:ajax event="dateSelect" update="fin" />
-                                </p:calendar>
-                            </p:column>
+                                <p:outputLabel  value="Año 1:" />
+                             </p:column>
                             <p:column>
-                                <p:outputLabel for="fin" value="Año 2:" />
-                                <p:calendar id="fin" value="#{rotacionBean.fin}" pattern="dd-MM-yyyy"
-                                            class="fecha" mindate="#{rotacionBean.ini}" locale="es" 
-                                            required="true" 
-                                            requiredMessage="Fecha Final Requerida"
-                                            />
+                                <p:outputLabel  value="Año 2:" />
                            </p:column>
-                            <p:column>
-                                <p:commandButton value="Mostrar" action="#{insaforpBean.mostrarCapacitaciones()}" 
-                                                 update="dtCapacitaciones"/>
+                             <p:column>
+                                 <p:commandButton value="Mostrar" action="#{insaforpBean.mostrarCapacitaciones()}" 
+                                                 update="dtCapacitaciones" />
                             </p:column>
                             <p:column>
                                 <h:commandLink  id="pdfexport">
                                     <h:graphicImage url="../resources/img/pdf.png"/>
                                     <p:dataExporter type="pdf" target="dtRotacion" 
-                                                    fileName="Rotacion-Personal" 
-                                                    encoding="windows-1250" preProcessor="#{FileExportProcessor}"/>
+                                                    fileName="capacitaciones" 
+                                                    preProcessor="#{FileExportProcessor.preProcessPDF}"/>
                                 </h:commandLink>
 
                             </p:column>
                         </p:row>
-                          <p:dataTable value="#{InsaforpBean.lista}" var="c" id="dtCapacitaciones" 
-                                     emptyMessage="No se han encontrado resultados">
-                            
+                          <p:dataTable value="#{insaforpBean.mostrarCapacitaciones()}" var="c" id="dtCapacitaciones" 
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="10"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">  
+                                          Costo de Capacitaciones.
+                                       </f:facet>
                               <p:column headerText="Area" filterBy="#{c.area}" filterMatchMode="contains">
                                   <p:outputLabel value="#{c.area}"/>
                             </p:column>
@@ -123,13 +124,11 @@
                      
                     </h:form>
                     
-                    
-                    
-                    
-                    
-                    
+                   
                 </h:panelGrid>
             </p:tab>
+            
+            
             <p:tab title="Contrataciones">
                 <h:panelGrid columns="2" cellpadding="10">
 
