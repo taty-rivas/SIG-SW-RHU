@@ -1,43 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
-          
+
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
+
+    <script type="text/javascript">
+        function enviar() {
+            document.barraprincipal.action = 'loginBean.cerrarSesion()';
+            document.barraprincipal.submit();
+        }
+    </script>
     <body>
-        
+
         <ui:composition>
-            <h:form>  
-                <p:growl id="growl" showDetail="true" sticky="true" />
-                <p:tooltip />
+            <h:form id="barraprincipal">  
                 <style type="text/css">
                     .ui-menubar, .ui-menu-child,.ui-menu{
-                        mouseover: #ff0000; 
+
                         background-color: #3366FF !important; 
                         background: #3366FF; 
                         border-color: #3366ff; 
-                        color: white !important;
-                        }
+                        color: white !important;                       
+
+                    }
+
+                    lu.ui-menu{
+                        background-color: black !important; 
+                        background: black !important;
+                    }
+
+
                 </style>
                 <p:menubar styleClass="ui-menubar">
-                    <p:menuitem value="Home" url="/faces/template.xhtml" icon="ui-icon-home" class="menuitem" style="color:white; "/>
                     <f:facet name="options">
                         <h:form>
-                            <p:growl id="messages" />
-                            <p:splitButton value="Aar&oacute;n" onclick="PF('dlg2').show();"  update="messages" icon="ui-icon-person">
-                                <p:menuitem value="Perfil" actionListener="#{gUIOption.error()}" update="messages" icon="ui-icon-arrowrefresh-1-w" />
-                                <p:separator />
-                                <p:menuitem value="Cerrar sesi&oacute;n" url="http://www.primefaces.org" icon="ui-icon-extlink" />
+                            <p:commandButton value="#{loginBean.tituloBarra}" onclick="PF('dlg2').show();" icon="ui-icon-person" rendered="#{!loginBean.disable}"/>
+                            <p:splitButton id="btnsesion" value="#{loginBean.tituloBarra}" onclick="PF('dlg2').show();"  icon="ui-icon-person" rendered="#{loginBean.disable}">
+                              
+
+                                <p:menuitem value="Cerrar Sesi&oacute;n"  icon="ui-icon-extlink" disabled="true">
+                                    <center> <p:commandButton id="btncerrarsesion" style="background: transparent !important; color: black !important; border-color: white !important" value="Cerrar Sesi&oacute;n" 
+                                                               action="#{loginBean.cerrarSesion()}" update=":barraprincipal" /></center>
+                                </p:menuitem>    
                             </p:splitButton>
                         </h:form>
                     </f:facet>
                 </p:menubar>
             </h:form>
-
             <p:row>
                 <p:column>
                     <h:graphicImage value ="/resources/img/logo.png" style="width: 190px;"/>
@@ -46,7 +60,6 @@
                     <h1 style="color: #3366FF!important; text-align: center; font-family: arial; ">RECURSOS HUMANOS</h1>
                 </p:column>
             </p:row>                    
-
         </ui:composition>        
     </body>
 </html>

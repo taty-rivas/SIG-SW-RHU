@@ -4,14 +4,32 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <navigation-rule>
-        <from-view-id>/Alumnos/alumnosVista.xhtml</from-view-id>
+        <from-view-id>/template.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>uno</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <from-outcome>tactico</from-outcome>
+            <to-view-id>/Tactico/tacticoView.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>dos</from-outcome>
-            <to-view-id>/welcomePrimefaces.xhtml</to-view-id>
+            <from-outcome>estrategico</from-outcome>
+            <to-view-id>/Estrategico/estrategicoView.xhtml</to-view-id>
+             <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Tactico/tacticoView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cerrarsesion</from-outcome>
+            <to-view-id>/template.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Estrategico/estrategicoView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cerrarsesion</from-outcome>
+            <to-view-id>/template.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 </faces-config>

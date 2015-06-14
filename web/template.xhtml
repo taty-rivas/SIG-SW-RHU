@@ -27,33 +27,59 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
            </ui:insert>
        </title>
     </h:head>
-    
+    <script type="text/javascript">
+        function noBack()
+        {
+            window.history.forward()
+        }
+        noBack();
+        window.onload = noBack;
+        window.onpageshow = function(evt) {
+            if (evt.persisted)
+                noBack()
+        }
+        window.onunload = function() {
+            void (0)
+        }
+    </script>
     <h:body>
         <div id="page">
-	    <div id="header">
-		<ui:insert name="header" >
-		  <ui:include src="/tempart/commonHeader.xhtml" />
-              
-		</ui:insert>
-	    </div>
- 
+            <div id="header">
+                <ui:insert name="header" >
+                    <ui:include src="/tempart/commonHeader.xhtml" />
+
+                </ui:insert>
+            </div>
+
             <div id="content" style="min-height: 600px">
-	  	<ui:insert name="content" >
+                <ui:insert name="content" >
                     <ui:include src="/tempart/commonContent.xhtml" />
                     <!--Dialogo modal para iniciar sesión fuera del view ************************************************************************************** -->                
-                    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="100">
-                        <h:outputText value="This is a Modal Dialog." />
+                    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true">
+                        <h:form>
+                            <p:panel id="panelsesion">
+                                <p:messages id="mensajessesion" autoUpdate="true"/>
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Usuario" for="username"/> 
+                                    <p:inputText value="#{loginBean.username}" id="username" required="true" requiredMessage="Escriba un nombre de usuario"/>
+                                    <p:outputLabel value="Contraseña" for="password"/>
+                                    <p:password value="#{loginBean.password}" id="password" required="true" requiredMessage="Escriba una contraseña"/>
+                                </p:panelGrid>
+                                <p:commandButton  value="Iniciar" action="#{loginBean.iniciarSesion()}" update=":barraprincipal" onclick="noBack()"/>
+                            </p:panel>
+                        </h:form>
+
                     </p:dialog> 
-                    
-	   	</ui:insert>
-	    </div>
- 
-	    <div id="footer" style="min-height: 100px; background-color: #3366FF !important;">
-	    	<ui:insert name="footer" >
-	    	  <ui:include src="/tempart/commonFooter.xhtml" />
-	    	</ui:insert>
-    	    </div>
- 
+
+                </ui:insert>
+            </div>
+
+            <div id="footer" style="min-height: 100px; background-color: #3366FF !important;">
+                <ui:insert name="footer" >
+                    <ui:include src="/tempart/commonFooter.xhtml" />
+                </ui:insert>
+            </div>
+
         </div>
     </h:body>
 </html>
