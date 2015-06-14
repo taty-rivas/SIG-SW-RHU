@@ -8,10 +8,10 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
+
     <script type="text/javascript">
-        function enviar(){
-            document.barraprincipal.action='loginBean.cerrarSesion()';
+        function enviar() {
+            document.barraprincipal.action = 'loginBean.cerrarSesion()';
             document.barraprincipal.submit();
         }
     </script>
@@ -21,29 +21,31 @@
             <h:form id="barraprincipal">  
                 <style type="text/css">
                     .ui-menubar, .ui-menu-child,.ui-menu{
-                        
+
                         background-color: #3366FF !important; 
                         background: #3366FF; 
                         border-color: #3366ff; 
                         color: white !important;                       
-                        
+
                     }
-                    
+
                     lu.ui-menu{
                         background-color: black !important; 
                         background: black !important;
                     }
-                    
-                   
+
+
                 </style>
                 <p:menubar styleClass="ui-menubar">
                     <f:facet name="options">
                         <h:form>
-                            <p:splitButton id="btnsesion" value="#{loginBean.tituloBarra}" onclick="PF('dlg2').show();"  icon="ui-icon-person">
-                                <p:separator />
-                                
-                                <p:menuitem value="Cerrar Sesi&oacute;n"  icon="ui-icon-extlink">
-                                    <center> <p:commandButton id="btncerrarsesion" style="background: transparent !important; color: black !important; border-color: white !important" value="Cerrar Sesi&oacute;n" actionListener="#{loginBean.cerrarSesion()}" update=":barraprincipal"/></center>
+                            <p:commandButton value="#{loginBean.tituloBarra}" onclick="PF('dlg2').show();" icon="ui-icon-person" rendered="#{!loginBean.disable}"/>
+                            <p:splitButton id="btnsesion" value="#{loginBean.tituloBarra}" onclick="PF('dlg2').show();"  icon="ui-icon-person" rendered="#{loginBean.disable}">
+                              
+
+                                <p:menuitem value="Cerrar Sesi&oacute;n"  icon="ui-icon-extlink" disabled="true">
+                                    <center> <p:commandButton id="btncerrarsesion" style="background: transparent !important; color: black !important; border-color: white !important" value="Cerrar Sesi&oacute;n" 
+                                                               action="#{loginBean.cerrarSesion()}" update=":barraprincipal" /></center>
                                 </p:menuitem>    
                             </p:splitButton>
                         </h:form>

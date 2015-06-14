@@ -15,14 +15,52 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            1
         </session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>faces/template.xhtml</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+
+        <display-name>
+            Preveniendo acceso a paginas xhtml
+        </display-name>
+        <web-resource-collection>
+            <web-resource-name>Restrict raw XHTML Documents</web-resource-name>
+            <!-- Adicione o caminho para cada arquivo .jsp  -->
+            <url-pattern>/Estrategico/estrategicoView.xhtml</url-pattern>
+             
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Se ha bloqueado el acceso</description>
+        </auth-constraint>
+    </security-constraint>
+   
+    <filter>
+        <filter-name>Pretty Filter</filter-name>
+        <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
+    </filter>
+
+    <filter-mapping> 
+        <filter-name>Pretty Filter</filter-name> 
+        <url-pattern>/*</url-pattern> 
+        <dispatcher>FORWARD</dispatcher> 
+        <dispatcher>REQUEST</dispatcher> 
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <context-param>
+        <param-name>com.ocpsoft.pretty.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/custom-mappings.xml,/META-INF/pretty-config.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
+        <param-value>true</param-value>
+    </context-param>
 </web-app>

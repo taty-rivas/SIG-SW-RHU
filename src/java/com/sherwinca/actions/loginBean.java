@@ -31,7 +31,12 @@ public class loginBean implements Serializable {
     private String username;
     private String password;
     private String tituloBarra;
+    private String navigationCase;
+    private boolean disable;
     private final static String USER_DEFAULT_MSG = "Iniciar Sesión";
+    private final static Integer PERFIL_ESTRATEGICO=1;
+    private final static Integer PERFIL_TACTICO=2;
+    private final static Integer PERFIL_ADMIN=3;
 
     /**
      * Creates a new instance of loginBean
@@ -46,18 +51,24 @@ public class loginBean implements Serializable {
         rc.execute("dlg2.hide()");
     }
 
-    public void cambiar() {
-        setTituloBarra(username);
+    public void colocarUsuario() {
+        if (user!=null){
+        setTituloBarra(user.getVcNmbUsuario());
+        }
+        setDisable(false);
     }
 
-    public void cerrarSesion() {
-        setTituloBarra(USER_DEFAULT_MSG);
+    public String cerrarSesion() {
+        //setTituloBarra(USER_DEFAULT_MSG);
+        FacesContext context = FacesContext.getCurrentInstance(); 
+        context.getExternalContext().getSessionMap().put("loginBean", null);
+        setNavigationCase("cerrarsesion");
+        return getNavigationCase();
 
     }
 
     public String iniciarSesion() {
         Session session = null;
-        List<SigUsuario> list = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("FROM SigUsuario x WHERE x.vcNmbUsuario=:user");
@@ -70,10 +81,16 @@ public class loginBean implements Serializable {
                 if (user.getVcPasswordUsuario().equals(password)) {
                     FacesContext context = FacesContext.getCurrentInstance();
                     context.getExternalContext().getSessionMap().put("Usuario", user);
-                    if (user.getSigPerfiles().getSPkPerfil() == 1) {
-                        return "estrategico";
-                    } else {
-                        return "";
+                    if (user.getSigPerfiles().getSPkPerfil()==PERFIL_ESTRATEGICO) {
+                        colocarUsuario();
+                        setDisable(true);
+                        setNavigationCase("estrategico");
+                        return getNavigationCase();
+                    } else if(user.getSigPerfiles().getSPkPerfil() == PERFIL_TACTICO) {
+                        colocarUsuario();
+                        setDisable(true);
+                        setNavigationCase("tactico");
+                        return getNavigationCase();
                     }
                 } else {
                     errorPassword();
@@ -154,6 +171,34 @@ public class loginBean implements Serializable {
      */
     public void setTituloBarra(String tituloBarra) {
         this.tituloBarra = tituloBarra;
+    }
+
+    /**
+     * @return the navigationCase
+     */
+    public String getNavigationCase() {
+        return navigationCase;
+    }
+
+    /**
+     * @param navigationCase the navigationCase to set
+     */
+    public void setNavigationCase(String navigationCase) {
+        this.navigationCase = navigationCase;
+    }
+
+    /**
+     * @return the disable
+     */
+    public boolean isDisable() {
+        return disable;
+    }
+
+    /**
+     * @param disable the disable to set
+     */
+    public void setDisable(boolean disable) {
+        this.disable = disable;
     }
 
 }
