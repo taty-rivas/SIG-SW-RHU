@@ -7,13 +7,19 @@ package com.sherwinca.actions;
 
 import com.sherwinca.entidades.HibernateUtil;
 import com.sherwinca.entidades.SigUsuario;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import org.apache.commons.codec.binary.Base64;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,11 +38,14 @@ public class loginBean implements Serializable {
     private String password;
     private String tituloBarra;
     private String navigationCase;
+    private String strdecode;
     private boolean disable;
+    private UIInput usernameText;
+    private UIInput passwordText;
     private final static String USER_DEFAULT_MSG = "Iniciar Sesión";
-    private final static Integer PERFIL_ESTRATEGICO=1;
-    private final static Integer PERFIL_TACTICO=2;
-    private final static Integer PERFIL_ADMIN=3;
+    private final static Integer PERFIL_ESTRATEGICO = 1;
+    private final static Integer PERFIL_TACTICO = 2;
+    private final static Integer PERFIL_ADMIN = 3;
 
     /**
      * Creates a new instance of loginBean
@@ -52,15 +61,15 @@ public class loginBean implements Serializable {
     }
 
     public void colocarUsuario() {
-        if (user!=null){
-        setTituloBarra(user.getVcNmbUsuario());
+        if (user != null) {
+            setTituloBarra(user.getVcNmbUsuario());
         }
         setDisable(false);
     }
 
     public String cerrarSesion() {
         //setTituloBarra(USER_DEFAULT_MSG);
-        FacesContext context = FacesContext.getCurrentInstance(); 
+        FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getSessionMap().put("loginBean", null);
         setNavigationCase("cerrarsesion");
         return getNavigationCase();
@@ -78,20 +87,33 @@ public class loginBean implements Serializable {
                 errorUsuario();
                 return "";
             } else {
-                if (user.getVcPasswordUsuario().equals(password)) {
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    context.getExternalContext().getSessionMap().put("Usuario", user);
-                    if (user.getSigPerfiles().getSPkPerfil()==PERFIL_ESTRATEGICO) {
-                        colocarUsuario();
-                        setDisable(true);
-                        setNavigationCase("estrategico");
-                        return getNavigationCase();
-                    } else if(user.getSigPerfiles().getSPkPerfil() == PERFIL_TACTICO) {
-                        colocarUsuario();
-                        setDisable(true);
-                        setNavigationCase("tactico");
-                        return getNavigationCase();
+                if (user.getVcPasswordUsuario() != null) {
+                    byte[] decoded = Base64.decodeBase64(user.getVcPasswordUsuario());
+                    try {
+                        strdecode = new String(decoded, "UTF-8");
+                        System.out.println(strdecode);
+                        if (password.equals(strdecode)) {
+                        //FacesContext context = FacesContext.getCurrentInstance();
+                            //context.getExternalContext().getSessionMap().put("Usuario", user);
+                            if (user.getSigPerfiles().getSPkPerfil() == PERFIL_ESTRATEGICO) {
+                                colocarUsuario();
+                                setDisable(true);
+                                setNavigationCase("estrategico");
+                                return getNavigationCase();
+                            } else if (user.getSigPerfiles().getSPkPerfil() == PERFIL_TACTICO) {
+                                colocarUsuario();
+                                setDisable(true);
+                                setNavigationCase("tactico");
+                                return getNavigationCase();
+                            }
+                        } else {
+                            errorPassword();
+                            return "";
+                        }
+                    } catch (UnsupportedEncodingException ex) {
+                        Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
                     }
+
                 } else {
                     errorPassword();
                     return "";
@@ -107,6 +129,13 @@ public class loginBean implements Serializable {
             }
         }
         return null;
+    }
+
+    public void limpiarForm() {
+        setUsername("");
+        setPassword("");
+        usernameText.setSubmittedValue("");
+        passwordText.setSubmittedValue("");
     }
 
     public void errorUsuario() {
@@ -199,6 +228,34 @@ public class loginBean implements Serializable {
      */
     public void setDisable(boolean disable) {
         this.disable = disable;
+    }
+
+    /**
+     * @return the usernameText
+     */
+    public UIInput getUsernameText() {
+        return usernameText;
+    }
+
+    /**
+     * @param usernameText the usernameText to set
+     */
+    public void setUsernameText(UIInput usernameText) {
+        this.usernameText = usernameText;
+    }
+
+    /**
+     * @return the passwordText
+     */
+    public UIInput getPasswordText() {
+        return passwordText;
+    }
+
+    /**
+     * @param passwordText the passwordText to set
+     */
+    public void setPasswordText(UIInput passwordText) {
+        this.passwordText = passwordText;
     }
 
 }

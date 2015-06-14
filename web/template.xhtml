@@ -19,13 +19,14 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
+
         <link href="/resources/css/styleSW.css" rel="stylesheet" type="text/css"/>
-       <title>
-           <ui:insert name="title">
-               Incio
-           </ui:insert>
-       </title>
+        <link rel="shortcut icon" href="#{resource['img/favicon.ico']}" type="image/x-icon" />
+        <title>
+            <ui:insert name="title">
+                Inicio
+            </ui:insert>
+        </title>
     </h:head>
     <script type="text/javascript">
         function noBack()
@@ -61,14 +62,23 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
                                 <p:messages id="mensajessesion" autoUpdate="true"/>
                                 <p:panelGrid columns="2">
                                     <p:outputLabel value="Usuario" for="username"/> 
-                                    <p:inputText value="#{loginBean.username}" id="username" required="true" requiredMessage="Escriba un nombre de usuario"/>
+                                    <p:inputText value="#{loginBean.username}" binding="#{loginBean.usernameText}" id="username" required="true" requiredMessage="Escriba un nombre de usuario"/>
                                     <p:outputLabel value="Contraseña" for="password"/>
-                                    <p:password value="#{loginBean.password}" id="password" required="true" requiredMessage="Escriba una contraseña"/>
+                                    <p:password value="#{loginBean.password}" binding="#{loginBean.passwordText}" id="password" required="true" requiredMessage="Escriba una contraseña"/>
                                 </p:panelGrid>
-                                <p:commandButton  value="Iniciar" action="#{loginBean.iniciarSesion()}" update=":barraprincipal" onclick="noBack()"/>
+                                <center>
+                                    <p:commandButton style="display:inline;" value="Iniciar" action="#{loginBean.iniciarSesion()}" update=":barraprincipal" onclick="noBack()"/>
+                                    <p:commandButton style="display:inline;" type="reset" value="Limpiar" actionListener="#{loginBean.limpiarForm()}" immediate="true">
+                                     
+                                    </p:commandButton>
+                                </center>
                             </p:panel>
                         </h:form>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <p:graphicImage name="/img/loading3.gif" />
+                        </p:dialog>
                     </p:dialog> 
 
                 </ui:insert>
