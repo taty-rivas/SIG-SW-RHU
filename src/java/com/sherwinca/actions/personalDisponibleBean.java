@@ -29,9 +29,8 @@ import org.hibernate.Session;
 public class personalDisponibleBean implements Serializable{
     
     private List<Disponible> lista = new ArrayList();
-    private List<String> listaAnios = new ArrayList();
-    private String vcMes; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
-    private String iAnio; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
+    public String vcMes="ABRIL"; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
+    public int iAnio=2014; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
     
      public personalDisponibleBean() { /*CONSTRUCTOR*/
     }
@@ -52,15 +51,13 @@ public class personalDisponibleBean implements Serializable{
         this.vcMes = vcMes;
     }
 
-    public String getiAnio() {
+    public int getiAnio() {
         return iAnio;
     }
 
-    public void setiAnio(String iAnio) {
+    public void setiAnio(int iAnio) {
         this.iAnio = iAnio;
     }
-
-   
 
 
     public void listar(){
@@ -92,28 +89,7 @@ public class personalDisponibleBean implements Serializable{
         }
     
     }
-     public void listarAnios(){
-         Session session = null;
-        List<SigPersonaldisponible> list2 = null;
-        
-  
-        try {            
-            session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SigPersonaldisponible r order by r.iAnioDisponible" );
-            
-            list2 = (List<SigPersonaldisponible>) query.list();
-            lista.clear();
-            for (SigPersonaldisponible elem : list2) {            
-                
-                listaAnios.add(String.valueOf(elem.getiAnioDisponible()));
-
-            }
-
-        } catch (HibernateException e) {
-            System.out.println(e.getMessage());
-        } finally {
-        }
-     }
+    
     
     
     /**
