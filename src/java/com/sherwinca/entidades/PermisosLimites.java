@@ -11,5 +11,6 @@ package com.sherwinca.entidades;
  * @author Solis
  */
 public class PermisosLimites {
-    
+    String nombre, apellido, area;
+    int nopermiso, anio;
 }
