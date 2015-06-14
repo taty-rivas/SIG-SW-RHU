@@ -18,10 +18,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author Solis
- */
+
 @ManagedBean
 @ViewScoped
 public class altasBajasBean implements Serializable{
