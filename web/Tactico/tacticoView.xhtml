@@ -100,12 +100,12 @@
                                 </p:column>
                                 <p:column>
                                     <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                                    <p:commandButton value="Mostrar"  actionListener="#{permisosLimiteBean.listarPermisos()}" update="dtpermisoLimite"/>
                                 </p:column>
                             </p:row>
 
                            <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{permisosLimiteBean.lista}" var="p" id="dtpermisoLimite"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
              rowsPerPageTemplate="5,10,15"> 
                                   <f:facet name="header">  
@@ -122,11 +122,11 @@
                                 <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.area}" />
                                 </p:column>
-                               <p:column headerText="Permisos" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
+                               <p:column headerText="Permisos" filterBy="#{p.nopermiso}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.nopermiso}"/>
                                 </p:column>
-                               <p:column headerText="A&ntilde;o:" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
+                               <p:column headerText="A&ntilde;o:" filterBy="#{p.anio}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.anio}"/>
                                 </p:column>
 
                             </p:dataTable>
@@ -168,34 +168,32 @@
                                 </p:column>
                                 <p:column>
                                     <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                                    <p:commandButton value="Mostrar"  actionListener="#{costoSalariosBean.listarCostos()}" update="dtsalarios"/>
                                 </p:column>
                             </p:row>
 
                            <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{costoSalariosBean.lista}" var="p" id="dtsalarios"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
              rowsPerPageTemplate="5,10,15"> 
                                   <f:facet name="header">  
-                                        Personal disponible   
+                                        Costos por salarios en unidades organizativas   
                                    </f:facet>  
-                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.nombre}"/>
+                               <p:column headerText="Unidad" filterBy="#{p.unidad}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.unidad}"/>
                                 </p:column>
-                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.apellido}"/>
+                               <p:column headerText="Costo" filterBy="#{p.costo}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.costo}"/>
                                 </p:column>
 
                                 
-                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.area}" />
-                                </p:column>
                                <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
+                                   <p:outputLabel value="#{p.mes}" />
                                 </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
+                               <p:column headerText="A&ntilde;o" filterBy="#{p.anio}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.anio}"/>
                                 </p:column>
+                             
 
                             </p:dataTable>
                         </h:form>
@@ -236,16 +234,16 @@
                                 </p:column>
                                 <p:column>
                                     <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                                    <p:commandButton value="Mostrar"  actionListener="#{personalCapacitadoBean.listarCapacitacion()}" update="dtpcapacitado"/>
                                 </p:column>
                             </p:row>
 
                            <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalCapacitadoBean.lista}" var="p" id="dtpcapacitado"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
              rowsPerPageTemplate="5,10,15"> 
                                   <f:facet name="header">  
-                                        Personal disponible   
+                                        Personal capacitado   
                                    </f:facet>  
                                 <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.nombre}"/>
@@ -258,11 +256,17 @@
                                 <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.area}" />
                                 </p:column>
-                               <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
+                               <p:column headerText="Curso" filterBy="#{p.curso}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.curso}"/>
                                 </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
+                               <p:column headerText="Duraci&oacute;n" filterBy="#{p.dias}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.dias}"/>
+                                </p:column>
+                               <p:column headerText="Faltas" filterBy="#{p.faltas}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.faltas}"/>
+                                </p:column>
+                               <p:column headerText="Costo" filterBy="#{p.costo}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.costo}"/>
                                 </p:column>
 
                             </p:dataTable>
@@ -304,16 +308,16 @@
                                 </p:column>
                                 <p:column>
                                     <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                                    <p:commandButton value="Mostrar"  actionListener="#{altasBajasBean.listarAltaBaja()}" update="dtaltaBaja"/>
                                 </p:column>
                             </p:row>
 
                            <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{altasBajasBean.lista}" var="p" id="dtaltaBaja"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
              rowsPerPageTemplate="5,10,15"> 
                                   <f:facet name="header">  
-                                        Personal disponible   
+                                        Altas y Bajas de personal   
                                    </f:facet>  
                                 <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.nombre}"/>
@@ -326,11 +330,15 @@
                                 <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.area}" />
                                 </p:column>
+                               
+                               <p:column headerText="Estado" filterBy="#{p.estado}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.estado}"/>
+                                </p:column>
                                <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.mes}"/>
                                 </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
+                               <p:column headerText="Mes" filterBy="#{p.anio}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{p.anio}"/>
                                 </p:column>
 
                             </p:dataTable>
@@ -372,16 +380,16 @@
                                 </p:column>
                                 <p:column>
                                     <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                                    <p:commandButton value="Mostrar"  actionListener="#{expedienteBean.listarCostos()}" update="dtExpediente"/>
                                 </p:column>
                             </p:row>
 
                            <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{expedienteBean.lista}" var="p" id="dtExpediente"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
              rowsPerPageTemplate="5,10,15"> 
                                   <f:facet name="header">  
-                                        Personal disponible   
+                                       Expediente de faltas  
                                    </f:facet>  
                                 <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.nombre}"/>
@@ -394,11 +402,14 @@
                                 <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.area}" />
                                 </p:column>
+                               <p:column headerText="No. Faltas" filterBy="#{p.nofaltas}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.nofaltas}" />
+                                </p:column>
                                <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
                                     <p:outputLabel value="#{p.mes}"/>
                                 </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
+                               <p:column headerText="A&ntilde;o" filterBy="#{p.anio}" filterMatchMode="contains">
+                                   <p:outputLabel value="#{p.anio}"/>
                                 </p:column>
 
                             </p:dataTable>

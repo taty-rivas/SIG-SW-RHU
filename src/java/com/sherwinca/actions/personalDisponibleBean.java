@@ -70,7 +70,7 @@ public class personalDisponibleBean implements Serializable{
             query.setParameter("mes", vcMes);
             query.setParameter("anio", iAnio);
             list = (List<SigPersonaldisponible>) query.list();
-            lista.clear();
+            
             for (SigPersonaldisponible elem : list) {            
                 Disponible row = new Disponible();                              
                 row.setNombre(elem.getVcNmbempDisponible());

@@ -23,5 +23,8 @@
         <property name="vcAreaAb" type="string">
             <column name="vc_area_ab" length="50" not-null="true" />
         </property>
+        <property name="iAnioAb" type="Integer">
+            <column name="i_anio_ab"  not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
