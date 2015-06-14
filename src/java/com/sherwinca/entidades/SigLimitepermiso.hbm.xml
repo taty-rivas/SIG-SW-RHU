@@ -20,8 +20,5 @@
         <property name="INopermisoLimite" type="java.lang.Integer">
             <column name="i_nopermiso_limite" />
         </property>
-         <property name="IAnioLimite" type="java.lang.Integer">
-            <column name="i_anio_limite" />
-        </property>
     </class>
 </hibernate-mapping>

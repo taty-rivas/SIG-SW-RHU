@@ -15,18 +15,17 @@ public class SigAltasbajas  implements java.io.Serializable {
      private int IEstadoAb;
      private String vcMesAb;
      private String vcAreaAb;
-private Integer iAnioAb;
+
     public SigAltasbajas() {
     }
 
-    public SigAltasbajas(int SPkAb, String vcNmbempAb, String vcApAb, int IEstadoAb, String vcMesAb, String vcAreaAb, Integer iAnioAb) {
+    public SigAltasbajas(int SPkAb, String vcNmbempAb, String vcApAb, int IEstadoAb, String vcMesAb, String vcAreaAb) {
        this.SPkAb = SPkAb;
        this.vcNmbempAb = vcNmbempAb;
        this.vcApAb = vcApAb;
        this.IEstadoAb = IEstadoAb;
        this.vcMesAb = vcMesAb;
        this.vcAreaAb = vcAreaAb;
-       this.iAnioAb = iAnioAb;
     }
    
     public int getSPkAb() {
@@ -70,20 +69,6 @@ private Integer iAnioAb;
     
     public void setVcAreaAb(String vcAreaAb) {
         this.vcAreaAb = vcAreaAb;
-    }
-
-    /**
-     * @return the iAnioAb
-     */
-    public Integer getiAnioAb() {
-        return iAnioAb;
-    }
-
-    /**
-     * @param iAnioAb the iAnioAb to set
-     */
-    public void setiAnioAb(Integer iAnioAb) {
-        this.iAnioAb = iAnioAb;
     }
 
 

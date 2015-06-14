@@ -15,19 +15,17 @@ public class SigFaltasgraves  implements java.io.Serializable {
      private String vcMesFaltas;
      private String vcAreaFaltas;
      private int INoFallas;
-     private Integer iAnioFaltas;
 
     public SigFaltasgraves() {
     }
 
-    public SigFaltasgraves(int SPkFaltas, String vcNmbempFaltas, String vcApFaltas, String vcMesFaltas, String vcAreaFaltas, int INoFallas, Integer iAnioFaltas) {
+    public SigFaltasgraves(int SPkFaltas, String vcNmbempFaltas, String vcApFaltas, String vcMesFaltas, String vcAreaFaltas, int INoFallas) {
        this.SPkFaltas = SPkFaltas;
        this.vcNmbempFaltas = vcNmbempFaltas;
        this.vcApFaltas = vcApFaltas;
        this.vcMesFaltas = vcMesFaltas;
        this.vcAreaFaltas = vcAreaFaltas;
        this.INoFallas = INoFallas;
-       this.iAnioFaltas = iAnioFaltas;
     }
    
     public int getSPkFaltas() {
@@ -71,14 +69,6 @@ public class SigFaltasgraves  implements java.io.Serializable {
     
     public void setINoFallas(int INoFallas) {
         this.INoFallas = INoFallas;
-    }
-
-    public Integer getiAnioFaltas() {
-        return iAnioFaltas;
-    }
-
-    public void setiAnioFaltas(Integer iAnioFaltas) {
-        this.iAnioFaltas = iAnioFaltas;
     }
 
 
