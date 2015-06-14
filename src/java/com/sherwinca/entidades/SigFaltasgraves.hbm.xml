@@ -23,7 +23,7 @@
         <property name="INoFallas" type="int">
             <column name="i_no_fallas" not-null="true" />
         </property>
-        <property name="iAnioFaltas" type="Integer">
+        <property name="iAnioFaltas" type="int">
             <column name="i_anio_faltas" not-null="true" />
         </property>
     </class>
