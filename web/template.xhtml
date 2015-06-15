@@ -19,41 +19,77 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
+
         <link href="/resources/css/styleSW.css" rel="stylesheet" type="text/css"/>
-       <title>
-           <ui:insert name="title">
-               Incio
-           </ui:insert>
-       </title>
+        <link rel="shortcut icon" href="#{resource['img/favicon.ico']}" type="image/x-icon" />
+        <title>
+            <ui:insert name="title">
+                Inicio
+            </ui:insert>
+        </title>
     </h:head>
-    
+    <script type="text/javascript">
+        function noBack()
+        {
+            window.history.forward()
+        }
+        noBack();
+        window.onload = noBack;
+        window.onpageshow = function(evt) {
+            if (evt.persisted)
+                noBack()
+        }
+        window.onunload = function() {
+            void (0)
+        }
+    </script>
     <h:body>
         <div id="page">
-	    <div id="header">
-		<ui:insert name="header" >
-		  <ui:include src="/tempart/commonHeader.xhtml" />
-              
-		</ui:insert>
-	    </div>
- 
+            <div id="header">
+                <ui:insert name="header" >
+                    <ui:include src="/tempart/commonHeader.xhtml" />
+
+                </ui:insert>
+            </div>
+
             <div id="content" style="min-height: 600px">
-	  	<ui:insert name="content" >
+                <ui:insert name="content" >
                     <ui:include src="/tempart/commonContent.xhtml" />
                     <!--Dialogo modal para iniciar sesión fuera del view ************************************************************************************** -->                
-                    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true" height="100">
-                        <h:outputText value="This is a Modal Dialog." />
+                    <p:dialog header="Iniciar sesi&oacute;n" widgetVar="dlg2" modal="true">
+                        <h:form>
+                            <p:panel id="panelsesion">
+                                <p:messages id="mensajessesion" autoUpdate="true"/>
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Usuario" for="username"/> 
+                                    <p:inputText value="#{loginBean.username}" binding="#{loginBean.usernameText}" id="username" required="true" requiredMessage="Escriba un nombre de usuario"/>
+                                    <p:outputLabel value="Contraseña" for="password"/>
+                                    <p:password value="#{loginBean.password}" binding="#{loginBean.passwordText}" id="password" required="true" requiredMessage="Escriba una contraseña"/>
+                                </p:panelGrid>
+                                <center>
+                                    <p:commandButton style="display:inline;" value="Iniciar" action="#{loginBean.iniciarSesion()}" update=":barraprincipal" onclick="noBack()"/>
+                                    <p:commandButton style="display:inline;" type="reset" value="Limpiar" actionListener="#{loginBean.limpiarForm()}" immediate="true">
+                                     
+                                    </p:commandButton>
+                                </center>
+                            </p:panel>
+                        </h:form>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <p:graphicImage name="/img/loading3.gif" />
+                        </p:dialog>
                     </p:dialog> 
-                    
-	   	</ui:insert>
-	    </div>
- 
-	    <div id="footer" style="min-height: 100px; background-color: #3366FF !important;">
-	    	<ui:insert name="footer" >
-	    	  <ui:include src="/tempart/commonFooter.xhtml" />
-	    	</ui:insert>
-    	    </div>
- 
+
+                </ui:insert>
+            </div>
+
+            <div id="footer" style="min-height: 100px; background-color: #3366FF !important;">
+                <ui:insert name="footer" >
+                    <ui:include src="/tempart/commonFooter.xhtml" />
+                </ui:insert>
+            </div>
+
         </div>
     </h:body>
 </html>

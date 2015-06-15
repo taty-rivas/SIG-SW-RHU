@@ -14,15 +14,17 @@ public class SigCostossalarios  implements java.io.Serializable {
      private String vcNmbuniCostos;
      private BigDecimal DMontoCostos;
      private String vcMesCostos;
+     private Integer iAnioCostos;
 
     public SigCostossalarios() {
     }
 
-    public SigCostossalarios(int SPkCostos, String vcNmbuniCostos, BigDecimal DMontoCostos, String vcMesCostos) {
+    public SigCostossalarios(int SPkCostos, String vcNmbuniCostos, BigDecimal DMontoCostos, String vcMesCostos, Integer iAnioCostos) {
        this.SPkCostos = SPkCostos;
        this.vcNmbuniCostos = vcNmbuniCostos;
        this.DMontoCostos = DMontoCostos;
        this.vcMesCostos = vcMesCostos;
+       this.iAnioCostos = iAnioCostos;
     }
    
     public int getSPkCostos() {
@@ -54,7 +56,15 @@ public class SigCostossalarios  implements java.io.Serializable {
         this.vcMesCostos = vcMesCostos;
     }
 
+    public Integer getiAnioCostos() {
+        return iAnioCostos;
+    }
 
+    public void setiAnioCostos(Integer iAnioCostos) {
+        this.iAnioCostos = iAnioCostos;
+    }
+
+    
 
 
 }

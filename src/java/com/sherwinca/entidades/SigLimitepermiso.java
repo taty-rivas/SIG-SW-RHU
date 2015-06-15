@@ -14,23 +14,26 @@ public class SigLimitepermiso  implements java.io.Serializable {
      private String vcApLimite;
      private String vcAreaLimite;
      private Integer INopermisoLimite;
+     private Integer iAnioLimite;
 
     public SigLimitepermiso() {
     }
 
 	
-    public SigLimitepermiso(int SPkLimite, String vcNmbempLimite, String vcApLimite, String vcAreaLimite) {
+    public SigLimitepermiso(int SPkLimite, String vcNmbempLimite, String vcApLimite, String vcAreaLimite, Integer iAnioLimite) {
         this.SPkLimite = SPkLimite;
         this.vcNmbempLimite = vcNmbempLimite;
         this.vcApLimite = vcApLimite;
         this.vcAreaLimite = vcAreaLimite;
+        this.iAnioLimite = iAnioLimite;
     }
-    public SigLimitepermiso(int SPkLimite, String vcNmbempLimite, String vcApLimite, String vcAreaLimite, Integer INopermisoLimite) {
+    public SigLimitepermiso(int SPkLimite, String vcNmbempLimite, String vcApLimite, String vcAreaLimite, Integer INopermisoLimite, Integer iAnioLimite) {
        this.SPkLimite = SPkLimite;
        this.vcNmbempLimite = vcNmbempLimite;
        this.vcApLimite = vcApLimite;
        this.vcAreaLimite = vcAreaLimite;
        this.INopermisoLimite = INopermisoLimite;
+       this.iAnioLimite = iAnioLimite;
     }
    
     public int getSPkLimite() {
@@ -67,6 +70,14 @@ public class SigLimitepermiso  implements java.io.Serializable {
     
     public void setINopermisoLimite(Integer INopermisoLimite) {
         this.INopermisoLimite = INopermisoLimite;
+    }
+
+    public Integer getiAnioLimite() {
+        return iAnioLimite;
+    }
+
+    public void setiAnioLimite(Integer iAnioLimite) {
+        this.iAnioLimite = iAnioLimite;
     }
 
 
