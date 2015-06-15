@@ -41,6 +41,7 @@ public class personalDisponibleBean implements Serializable{
         List<SigPersonaldisponible> list = null;
 
         try {
+            lista.clear();
             session = HibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SigPersonaldisponible r where r.vcMesDisponible=:mes AND r.iAnioDisponible =:anio");
             query.setParameter("mes", mes);
@@ -71,7 +72,7 @@ public class personalDisponibleBean implements Serializable{
         List<SigPersonaldisponible> list = null;
         try {
         session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("SELECT DISTINCT d.iAnioDisponible FROM SigPersonaldisponible d");
+        Query query = session.createQuery("SELECT DISTINCT d.iAnioDisponible FROM SigPersonaldisponible d ORDER BY d.iAnioDisponible ASC");
         list = (List<SigPersonaldisponible>) query.list();
         }catch (HibernateException e) {
             System.out.println(e.getMessage());

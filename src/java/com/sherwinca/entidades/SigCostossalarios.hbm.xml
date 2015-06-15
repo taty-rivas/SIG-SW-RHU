@@ -17,7 +17,7 @@
         <property name="vcMesCostos" type="string">
             <column name="vc_mes_costos" length="50" not-null="true" />
         </property>
-        <property name="iAnioCostos" type="integer">
+        <property name="iAnioCostos" type="int">
             <column name="i_anio_costos"  not-null="true" />
         </property>
     </class>
