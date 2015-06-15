@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 public class Insaforp {
     
-   String area;
+   String area,nombre;
    BigDecimal inversion;
 
     public String getArea() {
@@ -27,18 +27,15 @@ public class Insaforp {
         this.inversion = inversion;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    
    
-   
-   
-   
-   
-    
-    
-    
-    
-    
-    
-    
-    
     
 }

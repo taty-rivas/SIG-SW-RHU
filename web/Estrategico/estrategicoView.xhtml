@@ -13,6 +13,8 @@
     <ui:define name="content">
         <h:outputScript library="js" name="calendar_es.js" /> 
         <p:tabView orientation="left">
+            
+            <!-- REQUISITO 1: ROTACION DE PERSONAL-->
             <p:tab title="Rotacion de Personal">
                         <h:panelGrid columns="2" cellpadding="10">
                             <h:form id="form-1">
@@ -29,7 +31,7 @@
                                 </p:calendar>
                             </p:column>
                             <p:column>
-                                <p:outputLabel for="fin" value="Fin:" />
+                                <p:outputLabel for="fin" value="Ingrese Fecha Final:" />
                                 <p:calendar id="fin" value="#{rotacionBean.fin}" pattern="dd-MM-yyyy"
                                             class="fecha" mindate="#{rotacionBean.ini}" locale="es" 
                                             required="true" 
@@ -50,8 +52,8 @@
 
                             </p:column>
                         </p:row>
-                        <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion" 
-                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="10"
+                        <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion" style="margin-top:10px; " tableStyle="min-width:900px;"
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                         rowsPerPageTemplate="5,10,15">
@@ -79,77 +81,244 @@
                     </h:form>
                 </h:panelGrid>
             </p:tab>
-            
+            <!-- REQUISITO 2: COSTO DE CAPACITACIONES CON INSAFORP-->
             <p:tab title="Inversion INSAFORP">
-                <h:panelGrid columns="2" cellpadding="10">
-                      <h:form id="form-2">
+                <h:panelGrid columns="1" cellpadding="10">
+                    <!--tabla 1-->
+                    <h:form id="insa1">
                         <p:row>
                             <p:column>
-                                <p:outputLabel  value="Año 1:" />
-                             </p:column>
-                            <p:column>
-                                <p:outputLabel  value="Año 2:" />
-                           </p:column>
-                             <p:column>
-                                 <p:commandButton value="Mostrar" action="#{insaforpBean.mostrarCapacitaciones()}" 
-                                                 update="dtCapacitaciones" />
+                                <h:outputLabel for="anio1" value="Año 1: " />
+                                <p:spinner id="anio1" value="#{insaforpBean.anio1}" min="2010" max="2015"  stepFactor="1"/>
                             </p:column>
                             <p:column>
-                                <h:commandLink  id="pdfexport">
-                                    <h:graphicImage url="../resources/img/pdf.png"/>
-                                    <p:dataExporter type="pdf" target="dtRotacion" 
-                                                    fileName="capacitaciones" 
-                                                    preProcessor="#{FileExportProcessor.preProcessPDF}"/>
-                                </h:commandLink>
-
+                                <p:commandButton value="Mostrar" 
+                                action="#{insaforpBean.mostrarInv(insaforpBean.anio1)}" update="dtCapacitaciones_1"/>
                             </p:column>
                         </p:row>
-                          <p:dataTable value="#{insaforpBean.mostrarCapacitaciones()}" var="c" id="dtCapacitaciones" 
-                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="10"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                             rowsPerPageTemplate="5,10,15">
-                            <f:facet name="header">  
-                                          Costo de Capacitaciones.
-                                       </f:facet>
-                              <p:column headerText="Area" filterBy="#{c.area}" filterMatchMode="contains">
-                                  <p:outputLabel value="#{c.area}"/>
+                        <p:dataTable value="#{insaforpBean.lista}" var="cp" id="dtCapacitaciones_1" style="margin-top:10px;"
+                                     tableStyle="min-width:900px;" 
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                    {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                       <f:facet name="header">  
+                                   Periodo 1
+                       </f:facet>
+                            <p:column headerText="Area" filterBy="#{cp.area}" filterMatchMode="contains">
+                            <p:outputLabel value="#{cp.area}"/>
                             </p:column>
-                              <p:column headerText="Inversion($)" filterBy="#{c.inversion}" filterMatchMode="contains">
-                                  <p:outputLabel value="#{c.inversion}"/>
+                            <p:column headerText="Inversion($)" filterBy="#{cp.inversion}" filterMatchMode="contains">
+                                <p:outputLabel value="#{cp.inversion}"/>
                             </p:column>
-                           
-                           
-                        </p:dataTable>           
-                        
+                       </p:dataTable>      
                      
+                        <br></br><br></br>
+                         <p:row>
+                             <h:outputLabel for="anio2" value="Año 2: " />
+                             <p:spinner id="anio2" value="#{insaforpBean.anio2}" min="2010" max="2015"  stepFactor="1"/>
+                         </p:row>
+                         <p:column>
+                                <p:commandButton value="Mostrar" 
+                                action="#{insaforpBean.mostrarInv(insaforpBean.anio2)}" update="dtCapacitaciones_2"/>
+                            </p:column>
+                         <p:dataTable value="#{insaforpBean.lista}" var="cp" id="dtCapacitaciones_2" style="margin-top:10px; " 
+                                     tableStyle="min-width:900px;" emptyMessage="No se han encontrado resultados"
+                                     paginator="true" rows="5" paginatorTemplate="{CurrentPageReport}  {FirstPageLink}
+                                     {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                       <f:facet name="header">  
+                                   Periodo 2
+                       </f:facet>
+                            <p:column headerText="Area" filterBy="#{cp.area}" filterMatchMode="contains">
+                            <p:outputLabel value="#{cp.area}"/>
+                            </p:column>
+                            <p:column headerText="Inversion($)" filterBy="#{cp.inversion}" filterMatchMode="contains">
+                                <p:outputLabel value="#{cp.inversion}"/>
+                            </p:column>
+                       </p:dataTable>  
                     </h:form>
-                    
-                   
-                </h:panelGrid>
+                 </h:panelGrid>
+                      
             </p:tab>
-            
-            
+            <!-- REQUISITO 3: CONTRATACIONES-->
             <p:tab title="Contrataciones">
                 <h:panelGrid columns="2" cellpadding="10">
-
-                    <h:outputText
-                        value="The story begins as Don Vito Corleone..." />
-                </h:panelGrid>
+                    <h:form id="contra">
+                        <p:row>
+                             <p:column>
+                                <h:outputLabel for="anio1" value="Año 1: " />
+                                <p:spinner id="anio1" value="#{contratacionesBean.anio1}" min="2010" max="2015"  stepFactor="1"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Mostrar" action="#{contratacionesBean.mostrarContra(contratacionesBean.anio1)}" update="dtContra_1"/>
+                            </p:column>
+                        </p:row>
+                         <p:dataTable value="#{contratacionesBean.lista}" var="ct" id="dtContra_1" style="margin-top:10px; " tableStyle="min-width:900px;"
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15">
+                              <f:facet name="header">  
+                                    Contrataciones
+                              </f:facet>
+                            <p:column headerText="Nombres" filterBy="#{ct.nombres}" filterMatchMode="contains">
+                                <p:outputLabel value="#{ct.nombres}"/>
+                            </p:column>
+                             <p:column headerText="Apellidos" filterBy="#{ct.apellidos}" filterMatchMode="contains">
+                                <p:outputLabel value="#{ct.apellidos}"/>
+                            </p:column>
+                             <p:column headerText="Area" filterBy="#{ct.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{ct.area}"/>
+                            </p:column>
+                          </p:dataTable>
+                        <br></br><br></br>
+                         <p:row>
+                             <h:outputLabel for="anio2" value="Año 2: " />
+                             <p:spinner id="anio2" value="#{contratacionesBean.anio2}" min="2010" max="2015"  stepFactor="1"/>
+                             <p:column>
+                                <p:commandButton value="Mostrar" 
+                                action="#{contratacionesBean.mostrarContra(contratacionesBean.anio2)}" update="dtContra_2"/>
+                            </p:column>
+                         </p:row>
+                        <p:dataTable value="#{contratacionesBean.lista}" var="ct" id="dtContra_2" style="margin-top:10px; " tableStyle="min-width:900px;"
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15">
+                              <f:facet name="header">  
+                                    Contrataciones
+                              </f:facet>
+                            <p:column headerText="Nombres" filterBy="#{ct.nombres}" filterMatchMode="contains">
+                                <p:outputLabel value="#{ct.nombres}"/>
+                            </p:column>
+                             <p:column headerText="Apellidos" filterBy="#{ct.apellidos}" filterMatchMode="contains">
+                                <p:outputLabel value="#{ct.apellidos}"/>
+                            </p:column>
+                             <p:column headerText="Area" filterBy="#{ct.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{ct.area}"/>
+                            </p:column>
+                          </p:dataTable>
+                        
+                    </h:form>
+         </h:panelGrid>
             </p:tab>
+            <!-- REQUISITO 4: AUSENTISMO LABORAL-->
             <p:tab title="Ausencias">
                 <h:panelGrid columns="2" cellpadding="10">
-
-                    <h:outputText
-                        value="The story begins as Don Vito Corleone..." />
+                    <h:form id="ausen">
+                        <p:row>
+                            <p:column>
+                                        <p:outputLabel value="Mes:" />
+                                        <p:selectOneMenu value="#{ausenciasBean.mes1}">  
+                                            <f:selectItem itemLabel="Enero" itemValue="Enero" />  
+                                            <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
+                                            <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
+                                            <f:selectItem itemLabel="Abril" itemValue="Abril" />  
+                                            <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
+                                            <f:selectItem itemLabel="Junio" itemValue="Junio" />  
+                                            <f:selectItem itemLabel="Julio" itemValue="Julio" />  
+                                            <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
+                                            <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
+                                            <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
+                                            <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
+                                            <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
+                                        </p:selectOneMenu> 
+                             </p:column>
+                            <p:column>
+                                <p:commandButton value="Mostrar" action="#{ausenciasBean.mostrarAusencias(ausenciasBean.mes1)}" update="dtAusencias"/>
+                             </p:column>
+                        </p:row>
+                        <p:dataTable value="#{ausenciasBean.lista}" var="aus" id="dtAusencias" style="margin-top:10px; " tableStyle="min-width:900px;"
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">  
+                                    Ausencia Laboral
+                        </f:facet>
+                        <p:column headerText="Nombres" filterBy="#{aus.nombre}" filterMatchMode="contains">
+                                <p:outputLabel value="#{aus.nombre}"/>
+                        </p:column>
+                            <p:column headerText="Apellidos" filterBy="#{aus.apellidos}" filterMatchMode="contains">
+                                <p:outputLabel value="#{aus.apellidos}"/>
+                        </p:column>
+                         <p:column headerText="Permiso" filterBy="#{aus.permiso}" filterMatchMode="contains">
+                             <p:outputLabel value="#{aus.permiso}"/>
+                        </p:column>
+                        <p:column headerText="Horas" filterBy="#{aus.horas}" filterMatchMode="contains">
+                             <p:outputLabel value="#{aus.horas}"/>
+                        </p:column>
+                         <p:column headerText="Area" filterBy="#{aus.area}" filterMatchMode="contains">
+                             <p:outputLabel value="#{aus.area}"/>
+                        </p:column>
+                        </p:dataTable>
+                    </h:form>
+                  
                 </h:panelGrid>
             </p:tab>
+            <!-- REQUISITO 5: PRESUPUESTO POR AREA-->
             <p:tab title=" Presupuesto por Area">
                 <h:panelGrid columns="2" cellpadding="10">
-
-                    <h:outputText
-                        value="The story begins as Don Vito Corleone..." />
+                    <h:form id="presu" >
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="anio1" value="Año 1: " />
+                                <p:spinner id="anio1" value="#{presupuestoAreasBean.anio1}" min="2000" max="2015"  stepFactor="1"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Mostrar" action="#{presupuestoAreasBean.mostrarPresupuesto(presupuestoAreasBean.anio1)}" 
+                                                 update="dtPresupuesto"/>
+                            </p:column>
+                        </p:row>
+                        <p:dataTable value="#{presupuestoAreasBean.lista}" var="tp" id="dtPresupuesto" 
+                                     style="margin-top:10px; " tableStyle="min-width:900px;"
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">  
+                                   Periodo 1
+                        </f:facet>
+                         <p:column headerText="Area" filterBy="#{tp.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{tp.area}"/>
+                         </p:column>
+                         <p:column headerText="Presupuesto($)" filterBy="#{tp.presupuesto}" filterMatchMode="contains">
+                                <p:outputLabel value="#{tp.presupuesto}"/>
+                         </p:column>
+                        </p:dataTable>
+                        <br></br><br></br>
+                         <p:row>
+                            <p:column>
+                                <h:outputLabel for="anio2" value="Año 2: " />
+                                <p:spinner id="anio2" value="#{presupuestoAreasBean.anio2}" min="2000" max="2015"  stepFactor="1"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Mostrar" action="#{presupuestoAreasBean.mostrarPresupuesto(presupuestoAreasBean.anio2)}" 
+                                                 update="dtPresupuesto_2"/>
+                            </p:column>
+                       <p:dataTable value="#{presupuestoAreasBean.lista}" var="tp" id="dtPresupuesto_2" 
+                                     style="margin-top:10px; " tableStyle="min-width:900px;"
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">  
+                                   Periodo 2
+                        </f:facet>
+                         <p:column headerText="Area" filterBy="#{tp.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{tp.area}"/>
+                         </p:column>
+                         <p:column headerText="Presupuesto($)" filterBy="#{tp.presupuesto}" filterMatchMode="contains">
+                                <p:outputLabel value="#{tp.presupuesto}"/>
+                         </p:column>
+                        </p:dataTable>
+                        </p:row>
+                        
+                    </h:form>
                 </h:panelGrid>
             </p:tab>
+            
         </p:tabView>
     </ui:define>
 </ui:composition>

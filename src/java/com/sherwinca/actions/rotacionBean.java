@@ -15,13 +15,12 @@ import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
  *
- * @author HP
+ * @author Taty
  */
 @ManagedBean
 @ViewScoped
@@ -90,7 +89,7 @@ public class rotacionBean implements Serializable {
     }
     
     public void mostrarRotacion(){
-        
+        lista.clear();
         Session session;
         List<SigRotacionrrhh> list;
         String DatePattern = "yyyy-MM-dd";

@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.sherwinca.actions;
 
 import com.sherwinca.entidades.HibernateUtil;
 import com.sherwinca.entidades.Insaforp;
 import com.sherwinca.entidades.SigInversioninsaforp;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -24,9 +17,11 @@ import org.hibernate.Session;
  */
 @ManagedBean
 @ViewScoped
-public class InsaforpBean implements Serializable{
+public class InsaforpBean implements java.io.Serializable {
     
-    public static List<Insaforp> lista = new ArrayList();
+    private List<Insaforp> lista = new ArrayList();
+    
+    private int anio1=2000,anio2=2001;
 
     /**
      * Creates a new instance of capacitacionesBean
@@ -34,43 +29,55 @@ public class InsaforpBean implements Serializable{
     public InsaforpBean() {
     }
 
-    public static List<Insaforp> getLista() {
+    public List<Insaforp> getLista() {
         return lista;
     }
 
-    public static void setLista(List<Insaforp> lista) {
-        InsaforpBean.lista = lista;
+    public void setLista(List<Insaforp> lista) {
+        this.lista = lista;
     }
-    
-    public void mostrarCapacitaciones(){
+
+    public int getAnio1() {
+        return anio1;
+    }
+
+    public void setAnio1(int anio1) {
+        this.anio1 = anio1;
+    }
+
+    public int getAnio2() {
+        return anio2;
+    }
+
+    public void setAnio2(int anio2) {
+        this.anio2 = anio2;
+    }
+        
+    public void mostrarInv(int anio){
         
         Session session;
         List<SigInversioninsaforp> list;
-        
+     
         try {
-            
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from sig_inversioninsaforp");
+            Query query = session.createQuery("from SigInversioninsaforp r where r.IAnioInversion="+anio);
             
-            list = (List<SigInversioninsaforp>) query.list();
-
+            list = (List<SigInversioninsaforp>)  query.list();
+           
             for (SigInversioninsaforp elem : list) {
-
-                Insaforp insa = new Insaforp();
-                insa.setArea(elem.getVcNmbuniInversion());
-                insa.setInversion(elem.getDMontoInversion());
-              lista.add(insa);
-
-            }
+                Insaforp row = new Insaforp();
+                row.setArea(elem.getVcNmbuniInversion());
+                row.setInversion(elem.getDMontoInversion());
+                lista.add(row);
+               
+               }
+           
 
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
-        } finally {
-        }
+        } 
+      
 
     }
-    
-    
-    
     
 }
