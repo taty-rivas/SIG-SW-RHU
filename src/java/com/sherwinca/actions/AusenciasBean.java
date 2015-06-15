@@ -1,5 +1,5 @@
 package com.sherwinca.actions;
-
+/*--*/
 import com.sherwinca.entidades.Ausencias;
 import com.sherwinca.entidades.HibernateUtil;
 import com.sherwinca.entidades.SigGastoausentismo;

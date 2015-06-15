@@ -1,5 +1,5 @@
 package com.sherwinca.actions;
-
+/*--*/
 import com.sherwinca.entidades.Contrataciones;
 import com.sherwinca.entidades.HibernateUtil;
 import com.sherwinca.entidades.SigPersonalcontratado;
