@@ -7,403 +7,382 @@
                 xmlns="http://www.w3.org/1999/xhtml" 
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">
-                Sherwin Williams C.A | T&aacute;ctico
+        Sherwin Williams C.A | T&aacute;ctico
     </ui:define>
- 
+
     <ui:define name="content">
         <h:outputScript library="js" name="calendar_es.js" /> 
-        <h:form>
-            <p:tabView orientation="left">
-<!-- PERSONAL DISPONIBLE ************************************************************************-->                
-                <p:tab title="Personal disponible">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:form id="form1">
-                            <p:growl id="msgs" showDetail="true" />
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="mes" value="Mes:" />
-                                    <p:selectOneMenu id="mes" value="#{personalDisponibleBean.mes}">  
-                                        <f:selectItem itemLabel="Seleccione " noSelectionOption="true"/>  
-                                        <f:selectItem itemLabel="Enero" itemValue="Enero" />  
-                                        <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
-                                        <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
-                                        <f:selectItem itemLabel="Abril" itemValue="Abril" />  
-                                        <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
-                                        <f:selectItem itemLabel="Junio" itemValue="Junio" />  
-                                        <f:selectItem itemLabel="Julio" itemValue="Julio" />  
-                                        <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
-                                        <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
-                                        <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
-                                        <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
-                                        <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel for="anio" value="A&ntilde;o: " />
-                                    <p:selectOneMenu id="anio" value="#{personalDisponibleBean.anio}">  
-                                        <f:selectItems value="#{personalDisponibleBean.aniosTotales()}" />
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton  value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
-                                </p:column>
-                            </p:row>
 
-                           <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable  emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-             rowsPerPageTemplate="5,10,15"> 
-                                  <f:facet name="header">  
-                                        Personal disponible   
-                                   </f:facet>  
-                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.nombre}"/>
-                                </p:column>
-                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.apellido}"/>
-                                </p:column>
+        <p:tabView orientation="left">
+            <!-- PERSONAL DISPONIBLE ************************************************************************-->                
+            <p:tab title="Personal disponible">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="form1">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="mes" value="Mes:" />
+                                <p:selectOneMenu id="mes" value="#{personalDisponibleBean.mes}">  
+                                    <f:selectItem itemLabel="Seleccione " noSelectionOption="true"/>  
+                                    <f:selectItem itemLabel="Enero" itemValue="Enero" />  
+                                    <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
+                                    <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
+                                    <f:selectItem itemLabel="Abril" itemValue="Abril" />  
+                                    <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
+                                    <f:selectItem itemLabel="Junio" itemValue="Junio" />  
+                                    <f:selectItem itemLabel="Julio" itemValue="Julio" />  
+                                    <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
+                                    <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
+                                    <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
+                                    <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
+                                    <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel for="anio" value="A&ntilde;o: " />
+                                <p:selectOneMenu id="anio" value="#{personalDisponibleBean.anio}">  
+                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                    <f:selectItems value="#{personalDisponibleBean.aniosTotales()}"/>
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <!--ACCION PARA LLENAR LA TABLA -->
+                                <p:commandButton  value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                            </p:column>
+                        </p:row>
 
-                                
-                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.area}" />
-                                </p:column>
-                               <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
-                                </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
-                                </p:column>
+                        <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
+                        <p:dataTable  emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="5,10,15"> 
+                            <f:facet name="header">  
+                                Personal disponible   
+                            </f:facet>  
+                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.apellido}"/>
+                            </p:column>
 
-                            </p:dataTable>
-                        </h:form>
-                    </h:panelGrid>
-                </p:tab>
-<!-- PERMISOS AL LIMITE *************************************************************************-->  
-                <p:tab title="Permisos al limite">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:form id="form2">
-                            <p:growl id="msgs" showDetail="true" />
-                            <p:row>
-                                
-                                <p:column>
-                                    <p:outputLabel for="anio" value="A&ntilde;o: " />
-                                    <p:selectOneMenu id="anio" >  
-                                        <f:selectItem itemLabel="Select One" itemValue="" />  
-                                        <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
-                                        <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
-                                        <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
-                                </p:column>
-                            </p:row>
 
-                           <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-             rowsPerPageTemplate="5,10,15"> 
-                                  <f:facet name="header">  
-                                        Permisos limite  
-                                   </f:facet>  
-                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.nombre}"/>
-                                </p:column>
-                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.apellido}"/>
-                                </p:column>
+                            <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.area}" />
+                            </p:column>
+                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.mes}"/>
+                            </p:column>
+                            <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.horas}"/>
+                            </p:column>
 
-                                
-                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.area}" />
-                                </p:column>
-                               <p:column headerText="Permisos" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
-                                </p:column>
-                               <p:column headerText="A&ntilde;o:" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
-                                </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+            <!-- PERMISOS AL LIMITE *************************************************************************-->  
+            <p:tab title="Permisos al limite">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="form2">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:row>
 
-                            </p:dataTable>
-                        </h:form>
-                    </h:panelGrid>
-                </p:tab>
-<!-- COSTOS POR SALARIOS ************************************************************************-->  
-                <p:tab title="Costos por salarios">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:form id="form3">
-                            <p:growl id="msgs" showDetail="true" />
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="mes" value="Mes:" />
-                                    <p:selectOneMenu id="mes" >  
-                                        <f:selectItem itemLabel="Seleccione " noSelectionOption="true" />  
-                                        <f:selectItem itemLabel="Enero" itemValue="Enero" />  
-                                        <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
-                                        <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
-                                        <f:selectItem itemLabel="Abril" itemValue="Abril" />  
-                                        <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
-                                        <f:selectItem itemLabel="Junio" itemValue="Junio" />  
-                                        <f:selectItem itemLabel="Julio" itemValue="Julio" />  
-                                        <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
-                                        <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
-                                        <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
-                                        <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
-                                        <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel for="anio" value="A&ntilde;o: " />
-                                    <p:selectOneMenu id="anio" >  
-                                        <f:selectItem itemLabel="Select One" itemValue="" />  
-                                        <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
-                                        <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
-                                        <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
-                                </p:column>
-                            </p:row>
+                            <p:column>
+                                <p:outputLabel for="anio" value="A&ntilde;o: " />
+                                <p:selectOneMenu id="anio" value="#{permisoLimiteBean.anio}">  
+                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true" />  
+                                    <f:selectItems value="#{permisoLimiteBean.aniosTotalesPermisos()}"/>
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <!--ACCION PARA LLENAR LA TABLA -->
+                                <p:commandButton value="Mostrar"  actionListener="#{permisoLimiteBean.listar()}" update="dtLimite"/>
+                            </p:column>
+                        </p:row>
 
-                           <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-             rowsPerPageTemplate="5,10,15"> 
-                                  <f:facet name="header">  
-                                        Personal disponible   
-                                   </f:facet>  
-                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.nombre}"/>
-                                </p:column>
-                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.apellido}"/>
-                                </p:column>
+                        <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
+                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{permisoLimiteBean.lista}" var="p" id="dtLimite"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15"> 
+                            <f:facet name="header">  
+                                Personal con permisos al limite 
+                            </f:facet>  
+                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.apellido}"/>
+                            </p:column>
 
-                                
-                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.area}" />
-                                </p:column>
-                               <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
-                                </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
-                                </p:column>
 
-                            </p:dataTable>
-                        </h:form>
-                    </h:panelGrid>
-                </p:tab>
-<!-- PERSONAL CAPACITADO ************************************************************************-->  
-                <p:tab title="Personal capacitado">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:form id="form4">
-                            <p:growl id="msgs" showDetail="true" />
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="mes" value="Mes:" />
-                                    <p:selectOneMenu id="mes" >  
-                                        <f:selectItem itemLabel="Seleccione " itemValue="" />  
-                                        <f:selectItem itemLabel="Enero" itemValue="Enero" />  
-                                        <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
-                                        <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
-                                        <f:selectItem itemLabel="Abril" itemValue="Abril" />  
-                                        <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
-                                        <f:selectItem itemLabel="Junio" itemValue="Junio" />  
-                                        <f:selectItem itemLabel="Julio" itemValue="Julio" />  
-                                        <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
-                                        <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
-                                        <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
-                                        <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
-                                        <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel for="anio" value="A&ntilde;o: " />
-                                    <p:selectOneMenu id="anio" >  
-                                        <f:selectItem itemLabel="Select One" itemValue="" />  
-                                        <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
-                                        <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
-                                        <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
-                                </p:column>
-                            </p:row>
+                            <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.area}" />
+                            </p:column>
+                            <p:column headerText="Permisos" filterBy="#{p.nopermiso}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.nopermiso}"/>
+                            </p:column>
+                            <p:column headerText="A&ntilde;o:" filterBy="#{p.anio}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.anio}"/>
+                            </p:column>
 
-                           <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-             rowsPerPageTemplate="5,10,15"> 
-                                  <f:facet name="header">  
-                                        Personal disponible   
-                                   </f:facet>  
-                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.nombre}"/>
-                                </p:column>
-                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.apellido}"/>
-                                </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+            <!-- COSTOS POR SALARIOS ************************************************************************-->  
+            <p:tab title="Costos por salarios">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="form3">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="mes" value="Mes:" />
+                                <p:selectOneMenu id="mes" >  
+                                    <f:selectItem itemLabel="Seleccione " noSelectionOption="true" />  
+                                    <f:selectItem itemLabel="Enero" itemValue="Enero" />  
+                                    <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
+                                    <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
+                                    <f:selectItem itemLabel="Abril" itemValue="Abril" />  
+                                    <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
+                                    <f:selectItem itemLabel="Junio" itemValue="Junio" />  
+                                    <f:selectItem itemLabel="Julio" itemValue="Julio" />  
+                                    <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
+                                    <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
+                                    <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
+                                    <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
+                                    <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel for="anio" value="A&ntilde;o: " />
+                                <p:selectOneMenu id="anio" value ="#{costoSalariosBean.anio}" >  
+                                    <f:selectItem itemLabel="Seleccione"  noSelectionOption="true"/>  
+                                    <f:selectItems value="#{costoSalariosBean.aniosTotalesCostos()}"/>
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <!--ACCION PARA LLENAR LA TABLA -->
+                                <p:commandButton value="Mostrar"  actionListener="#{costoSalariosBean.listarCostos()}" update="dtCosto"/>
+                            </p:column>
+                        </p:row>
 
-                                
-                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.area}" />
-                                </p:column>
-                               <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
-                                </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
-                                </p:column>
+                        <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
+                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{costoSalariosBean.lista}" var="p" id="dtCosto"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15"> 
+                            <f:facet name="header">  
+                                Costos por Salario   
+                            </f:facet>  
+                            <p:column headerText="Unidad Organizativa" filterBy="#{p.unidad}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.unidad}"/>
+                            </p:column>
+                            <p:column headerText="Costo ($)" filterBy="#{p.costo}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.costo}"/>
+                            </p:column>
 
-                            </p:dataTable>
-                        </h:form>
-                    </h:panelGrid>
-                </p:tab>
-<!-- ALTAS Y BAJAS ******************************************************************************-->  
-                <p:tab title="Altas y bajas">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:form id="form5">
-                            <p:growl id="msgs" showDetail="true" />
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="mes" value="Mes:" />
-                                    <p:selectOneMenu id="mes" >  
-                                        <f:selectItem itemLabel="Seleccione " itemValue="" />  
-                                        <f:selectItem itemLabel="Enero" itemValue="Enero" />  
-                                        <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
-                                        <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
-                                        <f:selectItem itemLabel="Abril" itemValue="Abril" />  
-                                        <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
-                                        <f:selectItem itemLabel="Junio" itemValue="Junio" />  
-                                        <f:selectItem itemLabel="Julio" itemValue="Julio" />  
-                                        <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
-                                        <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
-                                        <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
-                                        <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
-                                        <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel for="anio" value="A&ntilde;o: " />
-                                    <p:selectOneMenu id="anio" >  
-                                        <f:selectItem itemLabel="Select One" itemValue="" />  
-                                        <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
-                                        <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
-                                        <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
-                                </p:column>
-                            </p:row>
 
-                           <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-             rowsPerPageTemplate="5,10,15"> 
-                                  <f:facet name="header">  
-                                        Personal disponible   
-                                   </f:facet>  
-                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.nombre}"/>
-                                </p:column>
-                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.apellido}"/>
-                                </p:column>
+                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.mes}" />
+                            </p:column>
+                            <p:column headerText="A&ntilde;o" filterBy="#{p.anio}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.anio}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+            <!-- PERSONAL CAPACITADO ************************************************************************-->  
+            <p:tab title="Personal capacitado">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="form4">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="unidadorg" value="Unidad Organizativa" />
+                                <p:selectOneMenu id="unidadorg" value="#{personalCapacitadoBean.unidadOrganizativa}" >  
+                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true" /> 
+                                    <f:selectItems value="#{personalCapacitadoBean.listarUnidades()}"/>
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <!--ACCION PARA LLENAR LA TABLA -->
+                                <p:commandButton value="Mostrar"  actionListener="#{personalCapacitadoBean.listarCapacitacion()}" update="dtDisponible"/>
+                            </p:column>
+                        </p:row>
 
-                                
-                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.area}" />
-                                </p:column>
-                               <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
-                                </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
-                                </p:column>
+                        <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
+                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalCapacitadoBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15"> 
+                            <f:facet name="header">  
+                                Personal con capacitaciones impartidas   
+                            </f:facet>  
+                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.apellido}"/>
+                            </p:column>
 
-                            </p:dataTable>
-                        </h:form>
-                    </h:panelGrid>
-                </p:tab>
-<!-- EXPEDIENTE DE FALTAS ***********************************************************************-->  
-                <p:tab title="Expediente de faltas">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:form id="form6">
-                            <p:growl id="msgs" showDetail="true" />
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="mes" value="Mes:" />
-                                    <p:selectOneMenu id="mes" >  
-                                        <f:selectItem itemLabel="Seleccione " itemValue="" />  
-                                        <f:selectItem itemLabel="Enero" itemValue="Enero" />  
-                                        <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
-                                        <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
-                                        <f:selectItem itemLabel="Abril" itemValue="Abril" />  
-                                        <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
-                                        <f:selectItem itemLabel="Junio" itemValue="Junio" />  
-                                        <f:selectItem itemLabel="Julio" itemValue="Julio" />  
-                                        <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
-                                        <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
-                                        <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
-                                        <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
-                                        <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel for="anio" value="A&ntilde;o: " />
-                                    <p:selectOneMenu id="anio" >  
-                                        <f:selectItem itemLabel="Select One" itemValue="" />  
-                                        <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
-                                        <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
-                                        <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
-                                    </p:selectOneMenu> 
-                                </p:column>
-                                <p:column>
-                                    <!--ACCION PARA LLENAR LA TABLA -->
-                                    <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
-                                </p:column>
-                            </p:row>
 
-                           <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                           <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-             rowsPerPageTemplate="5,10,15"> 
-                                  <f:facet name="header">  
-                                        Personal disponible   
-                                   </f:facet>  
-                                <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.nombre}"/>
-                                </p:column>
-                                <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.apellido}"/>
-                                </p:column>
+                            <p:column headerText="Unidad Organizativa" filterBy="#{p.unidad}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.unidad}" />
+                            </p:column>
+                            <p:column headerText="Curso" filterBy="#{p.curso}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.curso}"/>
+                            </p:column>
+                            <p:column headerText="D&iacute;as" filterBy="#{p.dias}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.dias}"/>
+                            </p:column>
+                            <p:column headerText="D&iacute;as de ausencia" filterBy="#{p.faltas}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.faltas}"/>
+                            </p:column>
+                            <p:column headerText="Costo" filterBy="#{p.costo}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.costo}"/>
+                            </p:column>
 
-                                
-                                <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.area}" />
-                                </p:column>
-                               <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{p.mes}"/>
-                                </p:column>
-                               <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                   <p:outputLabel value="#{p.horas}"/>
-                                </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+            <!-- ALTAS Y BAJAS ******************************************************************************-->  
+            <p:tab title="Altas y bajas de personal">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="form5">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="mes" value="Mes:" />
+                                <p:selectOneMenu id="mes" >  
+                                    <f:selectItem itemLabel="Seleccione " itemValue="" />  
+                                    <f:selectItem itemLabel="Enero" itemValue="Enero" />  
+                                    <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
+                                    <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
+                                    <f:selectItem itemLabel="Abril" itemValue="Abril" />  
+                                    <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
+                                    <f:selectItem itemLabel="Junio" itemValue="Junio" />  
+                                    <f:selectItem itemLabel="Julio" itemValue="Julio" />  
+                                    <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
+                                    <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
+                                    <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
+                                    <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
+                                    <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel for="anio" value="A&ntilde;o: " />
+                                <p:selectOneMenu id="anio" value="#{altasBajasBean.anio}">  
+                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                    <f:selectItems value="#{altasBajasBean.aniosTotalesAltasBajas()}"/>
+                                    
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <!--ACCION PARA LLENAR LA TABLA -->
+                                <p:commandButton value="Mostrar"  actionListener="#{altasBajasBean.listarAltaBaja()}" update="dtAltaBaja"/>
+                            </p:column>
+                        </p:row>
 
-                            </p:dataTable>
-                        </h:form>
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
-        </h:form>
+                        <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
+                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{altasBajasBean.lista}" var="p" id="dtAltaBaja"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15"> 
+                            <f:facet name="header">  
+                                Altas Y bajas de personal   
+                            </f:facet>  
+                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.apellido}"/>
+                            </p:column>
+                            <p:column headerText="Estado" filterBy="#{p.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.area}" />
+                            </p:column>
+                            <p:column headerText="Estado" filterBy="#{p.estado}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.estado}" />
+                            </p:column>
+                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.mes}"/>
+                            </p:column>
+                            <p:column headerText="A&ntilde;o" filterBy="#{p.anio}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.anio}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+            <!-- EXPEDIENTE DE FALTAS ***********************************************************************-->  
+            <p:tab title="Expediente de faltas">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="form6">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="mes" value="Mes:" />
+                                <p:selectOneMenu id="mes" >  
+                                    <f:selectItem itemLabel="Seleccione " itemValue="" />  
+                                    <f:selectItem itemLabel="Enero" itemValue="Enero" />  
+                                    <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
+                                    <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
+                                    <f:selectItem itemLabel="Abril" itemValue="Abril" />  
+                                    <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
+                                    <f:selectItem itemLabel="Junio" itemValue="Junio" />  
+                                    <f:selectItem itemLabel="Julio" itemValue="Julio" />  
+                                    <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
+                                    <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
+                                    <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
+                                    <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
+                                    <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel for="anio" value="A&ntilde;o: " />
+                                <p:selectOneMenu id="anio" >  
+                                    <f:selectItem itemLabel="Select One" itemValue="" />  
+                                    <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
+                                    <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
+                                    <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
+                                </p:selectOneMenu> 
+                            </p:column>
+                            <p:column>
+                                <!--ACCION PARA LLENAR LA TABLA -->
+                                <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                            </p:column>
+                        </p:row>
+
+                        <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
+                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15"> 
+                            <f:facet name="header">  
+                                Personal disponible   
+                            </f:facet>  
+                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.apellido}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.area}" />
+                            </p:column>
+                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.mes}"/>
+                            </p:column>
+                            <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
+                                <p:outputLabel value="#{p.horas}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+        </p:tabView>
+
     </ui:define> 
 </ui:composition>
 

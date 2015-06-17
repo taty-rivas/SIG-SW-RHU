@@ -25,8 +25,7 @@ import org.hibernate.Session;
 @ViewScoped
 public class personalCapacitadoBean {
      private List<CapacitacionImpartida> lista = new ArrayList();
-    public String vcMes="ABRIL"; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
-    public int iAnio=2014; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
+     private String unidadOrganizativa; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
     /**
      * Creates a new instance of personalCapacitadoBean
      */
@@ -41,31 +40,16 @@ public class personalCapacitadoBean {
         this.lista = lista;
     }
 
-    public String getVcMes() {
-        return vcMes;
-    }
-
-    public void setVcMes(String vcMes) {
-        this.vcMes = vcMes;
-    }
-
-    public int getiAnio() {
-        return iAnio;
-    }
-
-    public void setiAnio(int iAnio) {
-        this.iAnio = iAnio;
-    }
-    
+           
     public void listarCapacitacion(){
         Session session = null;
         List<SigCapacitacionimpartida> list = null;
-  
+        lista.clear();
         try {            
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SigCapacitacionimpartida r where  r.iAnioLimite =:anio" );
+            Query query = session.createQuery("from SigCapacitacionimpartida r where  r.vcNmbuniCapacitacion =:unidad" );
             
-            query.setParameter("anio", iAnio);
+            query.setParameter("unidad", getUnidadOrganizativa());
             list = (List<SigCapacitacionimpartida>) query.list();
             
             for (SigCapacitacionimpartida elem : list) {            
@@ -88,4 +72,38 @@ public class personalCapacitadoBean {
         }
     
     }
+    public List<SigCapacitacionimpartida> listarUnidades(){
+        Session session = null;
+        List<SigCapacitacionimpartida> list = null;
+        try {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("SELECT DISTINCT d.vcNmbuniCapacitacion FROM SigCapacitacionimpartida d ORDER BY d.vcNmbuniCapacitacion ASC");
+        list = (List<SigCapacitacionimpartida>) query.list();
+        }catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+        }
+        
+        return list;
+    }
+
+    /**
+     * @return the unidadOrganizativa
+     */
+    public String getUnidadOrganizativa() {
+        return unidadOrganizativa;
+    }
+
+    /**
+     * @param unidadOrganizativa the unidadOrganizativa to set
+     */
+    public void setUnidadOrganizativa(String unidadOrganizativa) {
+        this.unidadOrganizativa = unidadOrganizativa;
+    }
+
+    
+    /**
+     * @return the unidadOrganizativa
+     */
+    
 }

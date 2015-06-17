@@ -23,8 +23,8 @@ import org.hibernate.Session;
 @ViewScoped
 public class altasBajasBean implements Serializable{
     private List<AltaBaja> lista = new ArrayList();
-    public String vcMes="ABRIL"; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
-    public int iAnio=2014; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
+    public String vcMes; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
+    private int anio; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
     /**
      * Creates a new instance of altasBajasBean
      */
@@ -47,22 +47,16 @@ public class altasBajasBean implements Serializable{
         this.vcMes = vcMes;
     }
 
-    public int getiAnio() {
-        return iAnio;
-    }
-
-    public void setiAnio(int iAnio) {
-        this.iAnio = iAnio;
-    }
+    
     public void listarAltaBaja(){
         Session session = null;
         List<SigAltasbajas> list = null;
-  
+        lista.clear();
         try {            
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SigAltasbajas r where  r.iAnioLimite =:anio" );
+            Query query = session.createQuery("from SigAltasbajas r where  r.iAnioAb =:anio" );
             
-            query.setParameter("anio", iAnio);
+            query.setParameter("anio", anio);
             list = (List<SigAltasbajas>) query.list();
             
             for (SigAltasbajas elem : list) {            
@@ -73,8 +67,7 @@ public class altasBajasBean implements Serializable{
                 row.setEstado(elem.getIEstadoAb());
                 row.setMes(elem.getVcMesAb());
                 row.setAnio(elem.getiAnioAb());
-                
-                lista.add(row);
+                 lista.add(row);
 
             }
 
@@ -82,5 +75,35 @@ public class altasBajasBean implements Serializable{
             System.out.println(e.getMessage());
         } finally {
         }
+    }
+    
+    
+    public List<SigAltasbajas> aniosTotalesAltasBajas() {
+        Session session = null;
+        List<SigAltasbajas> list = null;
+        try {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("SELECT DISTINCT d.iAnioAb FROM SigAltasbajas d ORDER BY d.iAnioAb ASC");
+        list = (List<SigAltasbajas>) query.list();
+        }catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+        }
+        
+        return list;
+    }
+
+    /**
+     * @return the anio
+     */
+    public int getAnio() {
+        return anio;
+    }
+
+    /**
+     * @param anio the anio to set
+     */
+    public void setAnio(int anio) {
+        this.anio = anio;
     }
 }
