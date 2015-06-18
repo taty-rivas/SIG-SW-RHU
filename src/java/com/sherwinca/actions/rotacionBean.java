@@ -17,7 +17,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-
 /**
  *
  * @author Taty
@@ -50,9 +49,6 @@ public class rotacionBean implements Serializable {
     public void setFin(Date fin) {
         this.fin = fin;
     }
-
-
-   
 
     public List<Rotacion> getLista() {
         return lista;
@@ -132,5 +128,10 @@ public class rotacionBean implements Serializable {
         }
 
     }
+    
+
+    
+    
+    
     
 }

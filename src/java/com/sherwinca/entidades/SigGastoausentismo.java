@@ -16,11 +16,14 @@ public class SigGastoausentismo  implements java.io.Serializable {
      private String vcAreaAusentismo;
      private int ITipopermisoAusentismo;
      private String vcMesAusentismo;
+     private int iAnioAusentismo;
 
     public SigGastoausentismo() {
     }
 
-    public SigGastoausentismo(int SPkAusentismo, String vcNmbempAusentismo, String vcApAusentismo, int IHorasAusentismo, String vcAreaAusentismo, int ITipopermisoAusentismo, String vcMesAusentismo) {
+    public SigGastoausentismo(int SPkAusentismo, String vcNmbempAusentismo, 
+            String vcApAusentismo, int IHorasAusentismo, String vcAreaAusentismo,
+            int ITipopermisoAusentismo, String vcMesAusentismo, int iAnioAusentismo) {
        this.SPkAusentismo = SPkAusentismo;
        this.vcNmbempAusentismo = vcNmbempAusentismo;
        this.vcApAusentismo = vcApAusentismo;
@@ -28,6 +31,7 @@ public class SigGastoausentismo  implements java.io.Serializable {
        this.vcAreaAusentismo = vcAreaAusentismo;
        this.ITipopermisoAusentismo = ITipopermisoAusentismo;
        this.vcMesAusentismo = vcMesAusentismo;
+       this.iAnioAusentismo = iAnioAusentismo;
     }
    
     public int getSPkAusentismo() {
@@ -80,7 +84,15 @@ public class SigGastoausentismo  implements java.io.Serializable {
         this.vcMesAusentismo = vcMesAusentismo;
     }
 
+    public int getiAnioAusentismo() {
+        return iAnioAusentismo;
+    }
 
+    public void setiAnioAusentismo(int iAnioAusentismo) {
+        this.iAnioAusentismo = iAnioAusentismo;
+    }
+
+   
 
 
 }
