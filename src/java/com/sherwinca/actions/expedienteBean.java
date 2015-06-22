@@ -6,10 +6,8 @@
 
 package com.sherwinca.actions;
 
-import com.sherwinca.entidades.CostosSalarios;
 import com.sherwinca.entidades.Expediente;
 import com.sherwinca.entidades.HibernateUtil;
-import com.sherwinca.entidades.SigCostossalarios;
 import com.sherwinca.entidades.SigFaltasgraves;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,9 +22,9 @@ import org.hibernate.Session;
 @ManagedBean
 @ViewScoped
 public class expedienteBean implements Serializable{
-     private List<Expediente> lista = new ArrayList();
-    public String vcMes="ABRIL"; /*CAPTURA LA SELECCION DEL COMBOBOX MES DE TACTICO.XHTML*/
-    public int iAnio=2014; /*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
+    private List<Expediente> lista = new ArrayList();
+    private String unidadOrganizativa;
+    private Integer anio;/*CAPTURA LA SELECCION DEL COMBOBOX ANIO DE TACTICO.XHTML*/
     /**
      * Creates a new instance of expedienteBean
      */
@@ -41,31 +39,28 @@ public class expedienteBean implements Serializable{
         this.lista = lista;
     }
 
-    public String getVcMes() {
-        return vcMes;
+    public Integer getAnio() {
+        return anio;
     }
 
-    public void setVcMes(String vcMes) {
-        this.vcMes = vcMes;
+    public void setAnio(Integer anio) {
+        this.anio = anio;
     }
 
-    public int getiAnio() {
-        return iAnio;
-    }
-
-    public void setiAnio(int iAnio) {
-        this.iAnio = iAnio;
-    }
+    
     
     public void listarCostos(){
+        lista.clear();
         Session session = null;
         List<SigFaltasgraves> list = null;
   
         try {            
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SigFaltasgraves r where  r.iAnioFaltas =:anio" );
+            Query query = session.createQuery("from SigFaltasgraves r where  r.iAnioFaltas =:anio"
+                    + " and r.vcAreaFaltas =:unidadOrganizativa " );
             
-            query.setParameter("anio", iAnio);
+            query.setParameter("anio", anio);
+            query.setParameter("unidadOrganizativa", unidadOrganizativa);
             list = (List<SigFaltasgraves>) query.list();
             
             for (SigFaltasgraves elem : list) {            
@@ -87,4 +82,46 @@ public class expedienteBean implements Serializable{
         }
     
     }
+    
+    public List<SigFaltasgraves> listarUnidades(){
+        Session session = null;
+        List<SigFaltasgraves> list = null;
+        try {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("SELECT DISTINCT d.vcAreaFaltas FROM SigFaltasgraves d ORDER BY d.vcAreaFaltas ASC");
+        list = (List<SigFaltasgraves>) query.list();
+        }catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+        }
+        
+        return list;
+    }
+     
+     
+    public List<SigFaltasgraves> aniosTotalesExpediente() {
+        Session session = null;
+        List<SigFaltasgraves> list = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("SELECT DISTINCT d.iAnioFaltas "
+                    + "FROM SigFaltasgraves d ORDER BY d.iAnioFaltas ASC");
+            list = (List<SigFaltasgraves>) query.list();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+        }
+
+        return list;
+    }
+
+    public String getUnidadOrganizativa() {
+        return unidadOrganizativa;
+    }
+
+    public void setUnidadOrganizativa(String unidadOrganizativa) {
+        this.unidadOrganizativa = unidadOrganizativa;
+    }
+     
+     
 }

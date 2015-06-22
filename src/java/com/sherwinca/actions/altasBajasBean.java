@@ -64,9 +64,18 @@ public class altasBajasBean implements Serializable{
                 row.setNombre(elem.getVcNmbempAb());
                 row.setApellido(elem.getVcApAb());
                 row.setArea(elem.getVcAreaAb());
-                row.setEstado(elem.getIEstadoAb());
+                
                 row.setMes(elem.getVcMesAb());
                 row.setAnio(elem.getiAnioAb());
+                switch(elem.getIEstadoAb()){
+                    case 0:
+                          row.setEstado("Despido");
+                          break;
+                    case 1:
+                           row.setEstado("Contratacion");
+                           break;
+                  
+                }
                  lista.add(row);
 
             }

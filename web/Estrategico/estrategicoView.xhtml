@@ -250,6 +250,12 @@
                                 </f:facet>
                                 <p:outputLabel value="#{ct.area}"/>
                             </p:column>
+                            <p:column filterMatchMode="contains" filterBy="#{ct.anio}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Año"/>
+                                </f:facet>
+                                <p:outputLabel value="#{ct.anio}"/>
+                            </p:column>
                         </p:dataTable>
                         <br></br><br></br>
                         <p:row>
@@ -300,7 +306,12 @@
                                 </f:facet>
                                 <p:outputLabel value="#{ct.area}"/>
                             </p:column>
-
+                             <p:column filterMatchMode="contains" filterBy="#{ct.anio}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Año"/>
+                                </f:facet>
+                                <p:outputLabel value="#{ct.anio}"/>
+                            </p:column>
 
                         </p:dataTable>
 
