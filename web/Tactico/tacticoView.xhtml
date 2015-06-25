@@ -49,30 +49,58 @@
                                 <!--ACCION PARA LLENAR LA TABLA -->
                                 <p:commandButton  value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
                             </p:column>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtDisponible" fileName="PDF-Personal-Disponible" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" postProcessor="#{fileExportProcessor.postProcessXLS}"
+                                                target="dtDisponible" fileName="Excel-Personal-Disponible" />
+                            </h:commandLink>
                         </p:row>
 
                         <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                        <p:dataTable  emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                        <p:dataTable  emptyMessage="No se han encontrado datos." 
+                                      value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                       rowsPerPageTemplate="5,10,15"> 
                             <f:facet name="header">  
                                 Personal disponible   
                             </f:facet>  
-                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                            <p:column filterBy="#{p.nombre}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.nombre}"/>
                             </p:column>
-                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                            <p:column filterBy="#{p.apellido}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.apellido}"/>
                             </p:column>
 
-
-                            <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.area}" />
+                            <p:column filterBy="#{p.area}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.area}"/>
                             </p:column>
-                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                            
+                            
+                            <p:column filterBy="#{p.mes}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Mes"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.mes}"/>
                             </p:column>
-                            <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
+                            
+                            <p:column filterBy="#{p.horas}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Horas"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.horas}"/>
                             </p:column>
 
@@ -86,8 +114,7 @@
                     <h:form id="form2">
                         <p:growl id="msgs" showDetail="true" />
                         <p:row>
-
-                            <p:column>
+                          <p:column>
                                 <p:outputLabel for="anio" value="A&ntilde;o: " />
                                 <p:selectOneMenu id="anio" value="#{permisoLimiteBean.anio}">  
                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true" />  
@@ -98,33 +125,57 @@
                                 <!--ACCION PARA LLENAR LA TABLA -->
                                 <p:commandButton value="Mostrar"  actionListener="#{permisoLimiteBean.listar()}" update="dtLimite"/>
                             </p:column>
+                             <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtLimite" fileName="PDF-Permisos-Limite" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" postProcessor="#{fileExportProcessor.postProcessXLS}"
+                                                target="dtLimite" fileName="Excel-Permisos-Limite" />
+                            </h:commandLink>
                         </p:row>
 
                         <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{permisoLimiteBean.lista}" var="p" id="dtLimite"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                        <p:dataTable emptyMessage="No se han encontrado datos." 
+                                     value="#{permisoLimiteBean.lista}" var="p" id="dtLimite"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15"> 
                             <f:facet name="header">  
                                 Personal con permisos al limite 
                             </f:facet>  
-                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                            <p:column filterBy="#{p.nombre}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.nombre}"/>
                             </p:column>
-                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                            <p:column filterBy="#{p.apellido}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.apellido}"/>
                             </p:column>
-
-
-                            <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.area}" />
+                            <p:column filterBy="#{p.area}" filterMatchMode="contains">
+                                  <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.area}"/>
                             </p:column>
-                            <p:column headerText="Permisos" filterBy="#{p.nopermiso}" filterMatchMode="contains">
+                            <p:column filterBy="#{p.nopermiso}" filterMatchMode="contains">
+                                <f:facet name="header" >
+                                    <h:outputText value="Permisos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.nopermiso}"/>
                             </p:column>
-                            <p:column headerText="A&ntilde;o:" filterBy="#{p.anio}" filterMatchMode="contains">
+                             <p:column filterBy="#{p.anio}" filterMatchMode="contains">
+                                <f:facet name="header" >
+                                    <h:outputText value="A&ntilde;o:"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.anio}"/>
                             </p:column>
-
+                         
                         </p:dataTable>
                     </h:form>
                 </h:panelGrid>
@@ -164,29 +215,53 @@
                                 <!--ACCION PARA LLENAR LA TABLA -->
                                 <p:commandButton value="Mostrar"  actionListener="#{costoSalariosBean.listarCostos()}" update="dtCosto"/>
                             </p:column>
+                               <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtCosto" fileName="PDF-Costos-Salarios" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" postProcessor="#{fileExportProcessor.postProcessXLS}"
+                                                target="dtCosto" fileName="Excel-Costos-Salarios" />
+                            </h:commandLink>
                         </p:row>
 
                         <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{costoSalariosBean.lista}" var="p" id="dtCosto"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{costoSalariosBean.lista}"
+                                     var="p" id="dtCosto"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15"> 
                             <f:facet name="header">  
                                 Costos por Salario   
                             </f:facet>  
-                            <p:column headerText="Unidad Organizativa" filterBy="#{p.unidad}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.unidad}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Unidad Organizativa"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.unidad}"/>
                             </p:column>
-                            <p:column headerText="Costo ($)" filterBy="#{p.costo}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.costo}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Costo ($)"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.costo}"/>
                             </p:column>
-
-
-                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.mes}" />
+                            
+                           <p:column filterMatchMode="contains" filterBy="#{p.mes}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Mes"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.mes}"/>
                             </p:column>
-                            <p:column headerText="A&ntilde;o" filterBy="#{p.anio}" filterMatchMode="contains">
+                            
+                            <p:column filterMatchMode="contains" filterBy="#{p.anio}">
+                                <f:facet name="header" >
+                                    <h:outputText value="A&ntilde;o"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.anio}"/>
                             </p:column>
+
                         </p:dataTable>
                     </h:form>
                 </h:panelGrid>
@@ -208,38 +283,75 @@
                                 <!--ACCION PARA LLENAR LA TABLA -->
                                 <p:commandButton value="Mostrar"  actionListener="#{personalCapacitadoBean.listarCapacitacion()}" update="dtDisponible"/>
                             </p:column>
+                             <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtDisponible" fileName="PDF-Personal-Capacitado" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" postProcessor="#{fileExportProcessor.postProcessXLS}"
+                                                target="dtDisponible" fileName="Excel-Personal-Capacitado" />
+                            </h:commandLink>
                         </p:row>
 
                         <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalCapacitadoBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                        <p:dataTable emptyMessage="No se han encontrado datos."
+                                     value="#{personalCapacitadoBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15"> 
                             <f:facet name="header">  
                                 Personal con capacitaciones impartidas   
-                            </f:facet>  
-                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                            </f:facet> 
+                            <p:column filterMatchMode="contains" filterBy="#{p.nombre}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.nombre}"/>
                             </p:column>
-                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                            
+                            <p:column filterMatchMode="contains" filterBy="#{p.apellido}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.apellido}"/>
                             </p:column>
-
-
-                            <p:column headerText="Unidad Organizativa" filterBy="#{p.unidad}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.unidad}" />
+                          
+                             <p:column filterMatchMode="contains" filterBy="#{p.unidad}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Unidad Organizativa"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.unidad}"/>
                             </p:column>
-                            <p:column headerText="Curso" filterBy="#{p.curso}" filterMatchMode="contains">
+                            
+                            <p:column filterMatchMode="contains" filterBy="#{p.curso}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Curso"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.curso}"/>
                             </p:column>
-                            <p:column headerText="D&iacute;as" filterBy="#{p.dias}" filterMatchMode="contains">
+                            
+                            <p:column filterMatchMode="contains" filterBy="#{p.dias}">
+                                <f:facet name="header" >
+                                    <h:outputText value="D&iacute;as"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.dias}"/>
                             </p:column>
-                            <p:column headerText="D&iacute;as de ausencia" filterBy="#{p.faltas}" filterMatchMode="contains">
+
+                           <p:column filterMatchMode="contains" filterBy="#{p.faltas}">
+                                <f:facet name="header" >
+                                    <h:outputText value="D&iacute;as de ausencia"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.faltas}"/>
                             </p:column>
-                            <p:column headerText="Costo" filterBy="#{p.costo}" filterMatchMode="contains">
+                            
+                            <p:column filterMatchMode="contains" filterBy="#{p.costo}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Costo"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.costo}"/>
                             </p:column>
+                 
 
                         </p:dataTable>
                     </h:form>
@@ -274,13 +386,22 @@
                                 <p:selectOneMenu id="anio" value="#{altasBajasBean.anio}">  
                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                     <f:selectItems value="#{altasBajasBean.aniosTotalesAltasBajas()}"/>
-                                    
                                 </p:selectOneMenu> 
                             </p:column>
                             <p:column>
                                 <!--ACCION PARA LLENAR LA TABLA -->
                                 <p:commandButton value="Mostrar"  actionListener="#{altasBajasBean.listarAltaBaja()}" update="dtAltaBaja"/>
                             </p:column>
+                              <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtAltaBaja" fileName="PDF-AltasyBajas" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" postProcessor="#{fileExportProcessor.postProcessXLS}"
+                                                target="dtAltaBaja" fileName="Excel-AltasyBajas" />
+                            </h:commandLink>
                         </p:row>
 
                         <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
@@ -290,25 +411,49 @@
                             <f:facet name="header">  
                                 Altas Y bajas de personal   
                             </f:facet>  
-                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.nombre}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.nombre}"/>
                             </p:column>
-                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                            
+                            <p:column filterMatchMode="contains" filterBy="#{p.apellido}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.apellido}"/>
                             </p:column>
-                            <p:column headerText="Estado" filterBy="#{p.area}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.area}" />
+                            
+                             <p:column filterMatchMode="contains" filterBy="#{p.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.area}"/>
                             </p:column>
-                            <p:column headerText="Estado" filterBy="#{p.estado}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.estado}" />
+                            
+                             <p:column filterMatchMode="contains" filterBy="#{p.estado}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Estado"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.estado}"/>
                             </p:column>
-                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                            
+                             <p:column filterMatchMode="contains" filterBy="#{p.mes}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Mes"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.mes}"/>
                             </p:column>
-                            <p:column headerText="A&ntilde;o" filterBy="#{p.anio}" filterMatchMode="contains">
+                            
+                             <p:column filterMatchMode="contains" filterBy="#{p.anio}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Año"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.anio}"/>
                             </p:column>
-
+                            
+                       
                         </p:dataTable>
                     </h:form>
                 </h:panelGrid>
@@ -319,64 +464,79 @@
                     <h:form id="form6">
                         <p:growl id="msgs" showDetail="true" />
                         <p:row>
-                            <p:column>
-                                <p:outputLabel for="mes" value="Mes:" />
-                                <p:selectOneMenu id="mes" >  
-                                    <f:selectItem itemLabel="Seleccione " itemValue="" />  
-                                    <f:selectItem itemLabel="Enero" itemValue="Enero" />  
-                                    <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
-                                    <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
-                                    <f:selectItem itemLabel="Abril" itemValue="Abril" />  
-                                    <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
-                                    <f:selectItem itemLabel="Junio" itemValue="Junio" />  
-                                    <f:selectItem itemLabel="Julio" itemValue="Julio" />  
-                                    <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
-                                    <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
-                                    <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
-                                    <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
-                                    <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
+                             <p:column>
+                                <p:outputLabel for="unidadorg" value="Unidad Organizativa" />
+                                <p:selectOneMenu id="unidadorg" value="#{expedienteBean.unidadOrganizativa}" >  
+                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true" /> 
+                                    <f:selectItems value="#{expedienteBean.listarUnidades()}"/>
                                 </p:selectOneMenu> 
                             </p:column>
-                            <p:column>
+                             <p:column>
                                 <p:outputLabel for="anio" value="A&ntilde;o: " />
-                                <p:selectOneMenu id="anio" >  
-                                    <f:selectItem itemLabel="Select One" itemValue="" />  
-                                    <f:selectItem itemLabel="Option 1" itemValue="Option 1" />  
-                                    <f:selectItem itemLabel="Option 2" itemValue="Option 2" />  
-                                    <f:selectItem itemLabel="Option 3" itemValue="Option 3" />  
+                                <p:selectOneMenu id="anio" value ="#{expedienteBean.anio}" >  
+                                    <f:selectItem itemLabel="Seleccione"  noSelectionOption="true"/>  
+                                    <f:selectItems value="#{expedienteBean.aniosTotalesExpediente()}"/>
                                 </p:selectOneMenu> 
                             </p:column>
                             <p:column>
                                 <!--ACCION PARA LLENAR LA TABLA -->
-                                <p:commandButton value="Mostrar"  actionListener="#{personalDisponibleBean.listar()}" update="dtDisponible"/>
+                                <p:commandButton value="Mostrar"  actionListener="#{expedienteBean.listarCostos()}" update="dtExpediente"/>
                             </p:column>
+                              <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtExpediente" fileName="PDF-Expediente" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" postProcessor="#{fileExportProcessor.postProcessXLS}"
+                                                target="dtExpediente" fileName="Excel-Expediente" />
+                            </h:commandLink>
                         </p:row>
 
                         <!--AQUI SE LLENA LA TABLA CON LOS VALORES QUE SE LE PASAN -->
-                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{personalDisponibleBean.lista}" var="p" id="dtDisponible"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
+                        <p:dataTable emptyMessage="No se han encontrado datos." value="#{expedienteBean.lista}" var="p" id="dtExpediente"  style="margin-top:10px; " tableStyle="min-width:900px;" paginator="true" rows="10"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15"> 
                             <f:facet name="header">  
-                                Personal disponible   
+                                Expediente de faltas
                             </f:facet>  
-                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.nombre}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.nombre}"/>
                             </p:column>
-                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.apellido}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.apellido}"/>
                             </p:column>
-
-
-                            <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.area}" />
+                            <p:column filterMatchMode="contains" filterBy="#{p.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.area}"/>
                             </p:column>
-                            <p:column headerText="Mes" filterBy="#{p.mes}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.mes}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Mes"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.mes}"/>
                             </p:column>
-                            <p:column headerText="Horas" filterBy="#{p.horas}" filterMatchMode="contains">
-                                <p:outputLabel value="#{p.horas}"/>
+                            <p:column filterMatchMode="contains" filterBy="#{p.nofaltas}">
+                                <f:facet name="header" >
+                                    <h:outputText value="No. de Faltas"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.nofaltas}"/>
                             </p:column>
-
+                            <p:column filterMatchMode="contains" filterBy="#{p.anio}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Año"/>
+                                </f:facet>
+                                <p:outputLabel value="#{p.anio}"/>
+                            </p:column>
                         </p:dataTable>
                     </h:form>
                 </h:panelGrid>

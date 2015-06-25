@@ -31,16 +31,16 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
     <script type="text/javascript">
         function noBack()
         {
-            window.history.forward()
+            window.history.forward();
         }
         noBack();
         window.onload = noBack;
         window.onpageshow = function(evt) {
             if (evt.persisted)
-                noBack()
-        }
+                noBack();
+        };
         window.onunload = function() {
-            void (0)
+            void (0);
         }
     </script>
     <h:body>
@@ -48,7 +48,6 @@ h: outputStylesheet etiqueta para incluir un archivo CSS en la cabeza para peina
             <div id="header">
                 <ui:insert name="header" >
                     <ui:include src="/tempart/commonHeader.xhtml" />
-
                 </ui:insert>
             </div>
 

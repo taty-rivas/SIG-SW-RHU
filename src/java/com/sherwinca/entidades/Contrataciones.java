@@ -7,6 +7,19 @@ package com.sherwinca.entidades;
 public class Contrataciones {
     
     String nombres, apellidos, area;
+    int anio;
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+   
+    
+    
 
     public String getNombres() {
         return nombres;

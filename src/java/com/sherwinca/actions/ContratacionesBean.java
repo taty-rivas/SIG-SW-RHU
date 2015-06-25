@@ -67,6 +67,7 @@ public class ContratacionesBean implements java.io.Serializable {
                 row.setNombres(elem.getVcNmbempContratado());
                 row.setApellidos(elem.getVcApContratado());
                 row.setArea(elem.getVcAreaContratado());
+                row.setAnio(elem.getIAnioContratado());
                 lista.add(row);
             }
         } catch (HibernateException e) {

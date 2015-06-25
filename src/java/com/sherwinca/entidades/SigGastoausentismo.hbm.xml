@@ -26,5 +26,8 @@
         <property name="vcMesAusentismo" type="string">
             <column name="vc_mes_ausentismo" length="50" not-null="true" />
         </property>
+           <property name="iAnioAusentismo" type="int">
+            <column name="i_anio_ausentismo"  not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

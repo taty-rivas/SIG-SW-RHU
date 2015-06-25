@@ -11,8 +11,8 @@ package com.sherwinca.entidades;
  * @author Solis
  */
 public class AltaBaja {
-    String nombre, apellido, mes, area;
-    int estado, anio;
+    String nombre, apellido, mes, area,estado;
+    int anio;
 
     public String getNombre() {
         return nombre;
@@ -46,13 +46,15 @@ public class AltaBaja {
         this.area = area;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
+
+   
 
     public int getAnio() {
         return anio;

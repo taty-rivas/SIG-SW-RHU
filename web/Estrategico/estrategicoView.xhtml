@@ -9,17 +9,16 @@
     <ui:define name="title">
         Sherwin Williams C.A | Estrat&eacute;gico.
     </ui:define>
-   <ui:define name="content">
+    <ui:define name="content">
         <h:outputScript library="js" name="calendar_es.js" /> 
         <p:tabView orientation="left">
-            
             <!-- REQUISITO 1: ROTACION DE PERSONAL-->
             <p:tab title="Rotacion de Personal">
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <h:form id="form-1">
-                                <p:growl id="msgs" showDetail="true" />
-                                 <p:row>
-                                <p:column>
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="form-1">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:row>
+                            <p:column>
                                 <p:outputLabel for="ini" value="Ingrese Fecha Inicial" />
                                 <p:calendar id="ini" value="#{rotacionBean.ini}" pattern="dd-MM-yyyy" 
                                             class="fecha" locale="es"  required="true"
@@ -36,116 +35,174 @@
                                             required="true" 
                                             requiredMessage="Fecha Final Requerida"
                                             />    
-                           </p:column>
+                            </p:column>
                             <p:column>
                                 <p:commandButton value="Mostrar" action="#{rotacionBean.mostrarRotacion()}" 
                                                  update="dtRotacion"/>
                             </p:column>
-                            <p:column>
-                                <h:commandLink  id="pdfexport">
-                                    <h:graphicImage url="../resources/img/pdf.png"/>
-                                    <p:dataExporter type="pdf" target="dtRotacion" 
-                                                    fileName="Rotacion-Personal" 
-                                                    encoding="windows-1250" preProcessor="#{FileExportProcessor.preProcessPDF}"/>
-                                </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtRotacion" fileName="PDF-Rotacion-Personal" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" postProcessor="#{fileExportProcessor.postProcessXLS}"
+                                                target="dtRotacion" fileName="Excel-Rotacion-Personal" />
+                            </h:commandLink>
 
-                            </p:column>
+                            <br></br><br></br>
                         </p:row>
-                        <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion" style="margin-top:10px; " tableStyle="min-width:900px;"
+
+                        <p:dataTable value="#{rotacionBean.lista}" var="p" id="dtRotacion" style="margin-top:10px; " 
+                                     tableStyle="min-width:900px;"
                                      emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                        rowsPerPageTemplate="5,10,15">
-                             <f:facet name="header">  
-                                            Rotacion de Personal.
-                                       </f:facet>
-                            <p:column headerText="Nombres" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">  
+                                Rotacion de Personal.
+                            </f:facet>
+                            <p:column filterMatchMode="contains" filterBy="#{p.nombre}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.nombre}"/>
                             </p:column>
-                            <p:column headerText="Apellidos" filterBy="#{p.apellido}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.apellido}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.apellido}"/>
                             </p:column>
-                            <p:column headerText="Motivo" filterBy="#{p.motivo}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.motivo}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Motivo"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.motivo}"/>
                             </p:column>
-                            <p:column headerText="Area" filterBy="#{p.area}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.area}"/>
                             </p:column>
-                            <p:column headerText="Fecha" filterBy="#{p.fecha}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{p.fecha}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
                                 <p:outputLabel value="#{p.fecha}"/>
                             </p:column>
                         </p:dataTable>
-                        
-                     
                     </h:form>
                 </h:panelGrid>
             </p:tab>
-            <!-- REQUISITO 2: COSTO DE CAPACITACIONES CON INSAFORP-->
-            <p:tab title="Inversion INSAFORP">
-                <h:panelGrid columns="1" cellpadding="10">
-                    <!--tabla 1-->
-                    <h:form id="insa1">
-                        <p:row>
+            <!--REQUISITO 2 CAPACITACIONES INSAFORP -->
+                  <p:tab title="Inversion INSAFORP">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form id="insaforp" >
+                     <!--año 1 -->
+                       <p:row>
                             <p:column>
                                 <h:outputLabel for="anio1" value="Año 1: " />
-                                <p:spinner id="anio1" value="#{insaforpBean.anio1}" min="2010" max="2015"  stepFactor="1"/>
+                                <p:spinner id="anio1" value="#{insaforpBean.anio1}" min="2000" max="2015"  stepFactor="1"/>
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Mostrar" 
-                                action="#{insaforpBean.mostrarInv(insaforpBean.anio1)}" update="dtCapacitaciones_1"/>
+                                <p:commandButton value="Mostrar" action="#{insaforpBean.mostrarInv(insaforpBean.anio1)}" 
+                                                 update="dtInversion"/>
                             </p:column>
                         </p:row>
-                        <p:dataTable value="#{insaforpBean.lista}" var="cp" id="dtCapacitaciones_1" style="margin-top:10px;"
-                                     tableStyle="min-width:900px;" 
+                         <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png"/>
+                            <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                            target="dtInversion" 
+                                            fileName="PDF-Presupuesto"/>
+                        </h:commandLink>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel.png"/>
+                            <p:dataExporter type="xls" target="dtInversion" 
+                                            fileName="Excel-Presupuesto"
+                                            postProcessor="#{fileExportProcessor.postProcessXLS}"/>
+                        </h:commandLink> 
+                        <p:dataTable value="#{insaforpBean.lista}" var="tp" id="dtInversion" 
+                                     style="margin-top:10px; " tableStyle="min-width:900px;"
                                      emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                                    {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15">
-                       <f:facet name="header">  
-                                   Periodo 1
-                       </f:facet>
-                            <p:column headerText="Area" filterBy="#{cp.area}" filterMatchMode="contains">
-                            <p:outputLabel value="#{cp.area}"/>
+                            <f:facet name="header">  
+                                Periodo 1
+                            </f:facet>
+                            <p:column filterMatchMode="contains"  filterBy="#{tp.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <p:outputLabel value="#{tp.area}"/>
+                            </p:column>  
+
+                            <p:column filterMatchMode="contains"  filterBy="#{tp.inversion}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Costo($)"/>
+                                </f:facet>
+                                <p:outputLabel value="#{tp.inversion}"/>
+                            </p:column>  
+                        </p:dataTable>
+                     <!--año 2 -->
+                       <p:row>
+                            <p:column>
+                                <h:outputLabel for="anio2" value="Año 2: " />
+                                <p:spinner id="anio2" value="#{insaforpBean.anio2}" min="2000" max="2015"  stepFactor="1"/>
                             </p:column>
-                            <p:column headerText="Inversion($)" filterBy="#{cp.inversion}" filterMatchMode="contains">
-                                <p:outputLabel value="#{cp.inversion}"/>
+                            <p:column>
+                                <p:commandButton value="Mostrar" action="#{insaforpBean.mostrarInv(insaforpBean.anio2)}" 
+                                                 update="dtInversion2"/>
                             </p:column>
-                       </p:dataTable>      
-                     
-                        <br></br><br></br>
-                         <p:row>
-                             <h:outputLabel for="anio2" value="Año 2: " />
-                             <p:spinner id="anio2" value="#{insaforpBean.anio2}" min="2010" max="2015"  stepFactor="1"/>
-                         </p:row>
-                         <p:column>
-                                <p:commandButton value="Mostrar" 
-                                action="#{insaforpBean.mostrarInv(insaforpBean.anio2)}" update="dtCapacitaciones_2"/>
-                            </p:column>
-                         <p:dataTable value="#{insaforpBean.lista}" var="cp" id="dtCapacitaciones_2" style="margin-top:10px; " 
-                                     tableStyle="min-width:900px;" emptyMessage="No se han encontrado resultados"
-                                     paginator="true" rows="5" paginatorTemplate="{CurrentPageReport}  {FirstPageLink}
-                                     {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                        </p:row>
+                         <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png"/>
+                            <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                            target="dtInversion2" 
+                                            fileName="PDF-Presupuesto"/>
+                        </h:commandLink>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel.png"/>
+                            <p:dataExporter type="xls" target="dtInversion2" 
+                                            fileName="Excel-Presupuesto"
+                                            postProcessor="#{fileExportProcessor.postProcessXLS}"/>
+                        </h:commandLink> 
+                        <p:dataTable value="#{insaforpBean.lista}" var="tp" id="dtInversion2" 
+                                     style="margin-top:10px; " tableStyle="min-width:900px;"
+                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15">
-                       <f:facet name="header">  
-                                   Periodo 2
-                       </f:facet>
-                            <p:column headerText="Area" filterBy="#{cp.area}" filterMatchMode="contains">
-                            <p:outputLabel value="#{cp.area}"/>
-                            </p:column>
-                            <p:column headerText="Inversion($)" filterBy="#{cp.inversion}" filterMatchMode="contains">
-                                <p:outputLabel value="#{cp.inversion}"/>
-                            </p:column>
-                       </p:dataTable>  
+                            <f:facet name="header">  
+                                Periodo 2
+                            </f:facet>
+                            <p:column filterMatchMode="contains"  filterBy="#{tp.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <p:outputLabel value="#{tp.area}"/>
+                            </p:column>  
+
+                            <p:column filterMatchMode="contains"  filterBy="#{tp.inversion}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Costo($)"/>
+                                </f:facet>
+                                <p:outputLabel value="#{tp.inversion}"/>
+                            </p:column>  
+                        </p:dataTable>
                     </h:form>
-                 </h:panelGrid>
-                      
+                    
+                </h:panelGrid>
             </p:tab>
             <!-- REQUISITO 3: CONTRATACIONES-->
             <p:tab title="Contrataciones">
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:form id="contra">
                         <p:row>
-                             <p:column>
+                            <p:column>
                                 <h:outputLabel for="anio1" value="Año 1: " />
                                 <p:spinner id="anio1" value="#{contratacionesBean.anio1}" min="2010" max="2015"  stepFactor="1"/>
                             </p:column>
@@ -153,54 +210,113 @@
                                 <p:commandButton value="Mostrar" action="#{contratacionesBean.mostrarContra(contratacionesBean.anio1)}" update="dtContra_1"/>
                             </p:column>
                         </p:row>
-                         <p:dataTable value="#{contratacionesBean.lista}" var="ct" id="dtContra_1" style="margin-top:10px; " tableStyle="min-width:900px;"
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png"/>
+                            <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                            target="dtContra_1" 
+                                            fileName="PDF-Contrataciones"/>
+                        </h:commandLink>
+
+
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel.png"/>
+                            <p:dataExporter type="xls" target="dtContra_1" 
+                                            fileName="Excel-Contrataciones"
+                                            postProcessor="#{fileExportProcessor.postProcessXLS}"/>
+                        </h:commandLink>  
+                        <p:dataTable value="#{contratacionesBean.lista}" var="ct" id="dtContra_1" style="margin-top:10px; " tableStyle="min-width:900px;"
                                      emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                             rowsPerPageTemplate="5,10,15">
-                              <f:facet name="header">  
-                                    Contrataciones
-                              </f:facet>
-                            <p:column headerText="Nombres" filterBy="#{ct.nombres}" filterMatchMode="contains">
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">  
+                                Contrataciones
+                            </f:facet>
+                            <p:column filterMatchMode="contains" filterBy="#{ct.nombres}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{ct.nombres}"/>
                             </p:column>
-                             <p:column headerText="Apellidos" filterBy="#{ct.apellidos}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{ct.apellidos}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{ct.apellidos}"/>
                             </p:column>
-                             <p:column headerText="Area" filterBy="#{ct.area}" filterMatchMode="contains">
+                            <p:column filterMatchMode="contains" filterBy="#{ct.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
                                 <p:outputLabel value="#{ct.area}"/>
                             </p:column>
-                          </p:dataTable>
-                        <br></br><br></br>
-                         <p:row>
-                             <h:outputLabel for="anio2" value="Año 2: " />
-                             <p:spinner id="anio2" value="#{contratacionesBean.anio2}" min="2010" max="2015"  stepFactor="1"/>
-                             <p:column>
-                                <p:commandButton value="Mostrar" 
-                                action="#{contratacionesBean.mostrarContra(contratacionesBean.anio2)}" update="dtContra_2"/>
+                            <p:column filterMatchMode="contains" filterBy="#{ct.anio}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Año"/>
+                                </f:facet>
+                                <p:outputLabel value="#{ct.anio}"/>
                             </p:column>
-                         </p:row>
+                        </p:dataTable>
+                        <br></br><br></br>
+                        <p:row>
+                            <h:outputLabel for="anio2" value="Año 2: " />
+                            <p:spinner id="anio2" value="#{contratacionesBean.anio2}" min="2010" max="2015"  stepFactor="1"/>
+                            <p:column>
+                                <p:commandButton value="Mostrar" 
+                                                 action="#{contratacionesBean.mostrarContra(contratacionesBean.anio2)}" update="dtContra_2"/>
+                            </p:column>
+                        </p:row>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png"/>
+                            <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                            target="dtContra_2" 
+                                            fileName="PDF-Contrataciones"/>
+                        </h:commandLink>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel.png"/>
+                            <p:dataExporter type="xls" target="dtContra_2" 
+                                            fileName="Excel-Contrataciones"
+                                            postProcessor="#{fileExportProcessor.postProcessXLS}"/>
+                        </h:commandLink>  
                         <p:dataTable value="#{contratacionesBean.lista}" var="ct" id="dtContra_2" style="margin-top:10px; " tableStyle="min-width:900px;"
                                      emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                             rowsPerPageTemplate="5,10,15">
-                              <f:facet name="header">  
-                                    Contrataciones
-                              </f:facet>
-                            <p:column headerText="Nombres" filterBy="#{ct.nombres}" filterMatchMode="contains">
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">  
+                                Contrataciones
+                            </f:facet>
+                            <p:column filterMatchMode="contains" filterBy="#{ct.nombres}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Nombres"/>
+                                </f:facet>
                                 <p:outputLabel value="#{ct.nombres}"/>
                             </p:column>
-                             <p:column headerText="Apellidos" filterBy="#{ct.apellidos}" filterMatchMode="contains">
+
+                            <p:column filterMatchMode="contains" filterBy="#{ct.apellidos}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{ct.apellidos}"/>
                             </p:column>
-                             <p:column headerText="Area" filterBy="#{ct.area}" filterMatchMode="contains">
+
+                            <p:column filterMatchMode="contains" filterBy="#{ct.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
                                 <p:outputLabel value="#{ct.area}"/>
                             </p:column>
-                          </p:dataTable>
-                        
+                             <p:column filterMatchMode="contains" filterBy="#{ct.anio}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Año"/>
+                                </f:facet>
+                                <p:outputLabel value="#{ct.anio}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
                     </h:form>
-         </h:panelGrid>
+                </h:panelGrid>
             </p:tab>
             <!-- REQUISITO 4: AUSENTISMO LABORAL-->
             <p:tab title="Ausencias">
@@ -208,52 +324,89 @@
                     <h:form id="ausen">
                         <p:row>
                             <p:column>
-                                        <p:outputLabel value="Mes:" />
-                                        <p:selectOneMenu value="#{ausenciasBean.mes1}">  
-                                            <f:selectItem itemLabel="Enero" itemValue="Enero" />  
-                                            <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
-                                            <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
-                                            <f:selectItem itemLabel="Abril" itemValue="Abril" />  
-                                            <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
-                                            <f:selectItem itemLabel="Junio" itemValue="Junio" />  
-                                            <f:selectItem itemLabel="Julio" itemValue="Julio" />  
-                                            <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
-                                            <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
-                                            <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
-                                            <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
-                                            <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
-                                        </p:selectOneMenu> 
-                             </p:column>
+                                <p:outputLabel value="Mes:" />
+                                <p:selectOneMenu value="#{ausenciasBean.mes1}">  
+                                    <f:selectItem itemLabel="Enero" itemValue="Enero" />  
+                                    <f:selectItem itemLabel="Febrero" itemValue="Febrero" />  
+                                    <f:selectItem itemLabel="Marzo" itemValue="Marzo" />  
+                                    <f:selectItem itemLabel="Abril" itemValue="Abril" />  
+                                    <f:selectItem itemLabel="Mayo" itemValue="Mayo" />  
+                                    <f:selectItem itemLabel="Junio" itemValue="Junio" />  
+                                    <f:selectItem itemLabel="Julio" itemValue="Julio" />  
+                                    <f:selectItem itemLabel="Agosto" itemValue="Agosto" />  
+                                    <f:selectItem itemLabel="Septiembre" itemValue="Septiembre" />  
+                                    <f:selectItem itemLabel="Octubre" itemValue="Octubre" />  
+                                    <f:selectItem itemLabel="Noviembre" itemValue="Noviembre" />  
+                                    <f:selectItem itemLabel="Diciembre" itemValue="Diciembre" />  
+                                </p:selectOneMenu> 
+                            </p:column>
+                                  <p:column>
+                                    <p:outputLabel for="anio" value="A&ntilde;o: " />
+                                    <p:selectOneMenu id="anio" value="#{ausenciasBean.anio}">  
+                                        <f:selectItems value="#{ausenciasBean.aniosTotales()}" />
+                                    </p:selectOneMenu> 
+                                </p:column>
                             <p:column>
                                 <p:commandButton value="Mostrar" action="#{ausenciasBean.mostrarAusencias(ausenciasBean.mes1)}" update="dtAusencias"/>
-                             </p:column>
+                            </p:column>
                         </p:row>
+                        
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png"/>
+                            <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                            target="dtAusencias" 
+                                            fileName="PDF-Ausencias"/>
+                        </h:commandLink>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel.png"/>
+                            <p:dataExporter type="xls" target="dtAusencias" 
+                                            fileName="Excel-Ausencias"
+                                            postProcessor="#{fileExportProcessor.postProcessXLS}"/>
+                        </h:commandLink> 
                         <p:dataTable value="#{ausenciasBean.lista}" var="aus" id="dtAusencias" style="margin-top:10px; " tableStyle="min-width:900px;"
                                      emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                             rowsPerPageTemplate="5,10,15">
-                        <f:facet name="header">  
-                                    Ausencia Laboral
-                        </f:facet>
-                        <p:column headerText="Nombres" filterBy="#{aus.nombre}" filterMatchMode="contains">
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">  
+                                Ausencia Laboral
+                            </f:facet>
+                            <p:column filterMatchMode="contains" filterBy="#{aus.nombre}" >
+                                <f:facet name="header" >
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
                                 <p:outputLabel value="#{aus.nombre}"/>
-                        </p:column>
-                            <p:column headerText="Apellidos" filterBy="#{aus.apellidos}" filterMatchMode="contains">
+                            </p:column>
+
+                            <p:column filterMatchMode="contains" filterBy="#{aus.apellidos}" >
+                                <f:facet name="header" >
+                                    <h:outputText value="Apellidos"/>
+                                </f:facet>
                                 <p:outputLabel value="#{aus.apellidos}"/>
-                        </p:column>
-                         <p:column headerText="Permiso" filterBy="#{aus.permiso}" filterMatchMode="contains">
-                             <p:outputLabel value="#{aus.permiso}"/>
-                        </p:column>
-                        <p:column headerText="Horas" filterBy="#{aus.horas}" filterMatchMode="contains">
-                             <p:outputLabel value="#{aus.horas}"/>
-                        </p:column>
-                         <p:column headerText="Area" filterBy="#{aus.area}" filterMatchMode="contains">
-                             <p:outputLabel value="#{aus.area}"/>
-                        </p:column>
+                            </p:column>    
+
+                            <p:column filterMatchMode="contains" filterBy="#{aus.permiso}" >
+                                <f:facet name="header" >
+                                    <h:outputText value="Permiso"/>
+                                </f:facet>
+                                <p:outputLabel value="#{aus.permiso}"/>
+                            </p:column>  
+                            <p:column filterMatchMode="contains" filterBy="#{aus.horas}" >
+                                <f:facet name="header" >
+                                    <h:outputText value="Horas"/>
+                                </f:facet>
+                                <p:outputLabel value="#{aus.horas}"/>
+                            </p:column> 
+                            <p:column filterMatchMode="contains" filterBy="#{aus.area}" >
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <p:outputLabel value="#{aus.area}"/>
+                            </p:column> 
+
                         </p:dataTable>
                     </h:form>
-                  
+
                 </h:panelGrid>
             </p:tab>
             <!-- REQUISITO 5: PRESUPUESTO POR AREA-->
@@ -270,24 +423,43 @@
                                                  update="dtPresupuesto"/>
                             </p:column>
                         </p:row>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png"/>
+                            <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                            target="dtPresupuesto" 
+                                            fileName="PDF-Presupuesto"/>
+                        </h:commandLink>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel.png"/>
+                            <p:dataExporter type="xls" target="dtPresupuesto" 
+                                            fileName="Excel-Presupuesto"
+                                            postProcessor="#{fileExportProcessor.postProcessXLS}"/>
+                        </h:commandLink> 
                         <p:dataTable value="#{presupuestoAreasBean.lista}" var="tp" id="dtPresupuesto" 
                                      style="margin-top:10px; " tableStyle="min-width:900px;"
                                      emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                                      {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15">
-                        <f:facet name="header">  
-                                   Periodo 1
-                        </f:facet>
-                         <p:column headerText="Area" filterBy="#{tp.area}" filterMatchMode="contains">
+                            <f:facet name="header">  
+                                Periodo 1
+                            </f:facet>
+                            <p:column filterMatchMode="contains"  filterBy="#{tp.area}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Area"/>
+                                </f:facet>
                                 <p:outputLabel value="#{tp.area}"/>
-                         </p:column>
-                         <p:column headerText="Presupuesto($)" filterBy="#{tp.presupuesto}" filterMatchMode="contains">
+                            </p:column>  
+
+                            <p:column filterMatchMode="contains"  filterBy="#{tp.presupuesto}">
+                                <f:facet name="header" >
+                                    <h:outputText value="Presupuesto($)"/>
+                                </f:facet>
                                 <p:outputLabel value="#{tp.presupuesto}"/>
-                         </p:column>
+                            </p:column>  
                         </p:dataTable>
                         <br></br><br></br>
-                         <p:row>
+                        <p:row>
                             <p:column>
                                 <h:outputLabel for="anio2" value="Año 2: " />
                                 <p:spinner id="anio2" value="#{presupuestoAreasBean.anio2}" min="2000" max="2015"  stepFactor="1"/>
@@ -296,28 +468,48 @@
                                 <p:commandButton value="Mostrar" action="#{presupuestoAreasBean.mostrarPresupuesto(presupuestoAreasBean.anio2)}" 
                                                  update="dtPresupuesto_2"/>
                             </p:column>
-                       <p:dataTable value="#{presupuestoAreasBean.lista}" var="tp" id="dtPresupuesto_2" 
-                                     style="margin-top:10px; " tableStyle="min-width:900px;"
-                                     emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                     rowsPerPageTemplate="5,10,15">
-                        <f:facet name="header">  
-                                   Periodo 2
-                        </f:facet>
-                         <p:column headerText="Area" filterBy="#{tp.area}" filterMatchMode="contains">
-                                <p:outputLabel value="#{tp.area}"/>
-                         </p:column>
-                         <p:column headerText="Presupuesto($)" filterBy="#{tp.presupuesto}" filterMatchMode="contains">
-                                <p:outputLabel value="#{tp.presupuesto}"/>
-                         </p:column>
-                        </p:dataTable>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/pdf.png"/>
+                                <p:dataExporter type="pdf" postProcessor="#{fileExportProcessor.preProcessPDF}"
+                                                target="dtPresupuesto_2" 
+                                                fileName="PDF-Presupuesto"/>
+                            </h:commandLink>
+                            <h:commandLink>
+                                <h:graphicImage url="../resources/img/excel.png"/>
+                                <p:dataExporter type="xls" target="dtPresupuesto_2" 
+                                                fileName="Excel-Presupuesto"
+                                                postProcessor="#{fileExportProcessor.postProcessXLS}"/>
+                            </h:commandLink> 
+                            <p:dataTable value="#{presupuestoAreasBean.lista}" var="tp" id="dtPresupuesto_2" 
+                                         style="margin-top:10px; " tableStyle="min-width:900px;"
+                                         emptyMessage="No se han encontrado resultados" paginator="true" rows="5"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15">
+                                <f:facet name="header">  
+                                    Periodo 2
+                                </f:facet>
+                                <p:column filterMatchMode="contains"  filterBy="#{tp.area}">
+                                    <f:facet name="header" >
+                                        <h:outputText value="Area"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{tp.area}"/>
+                                </p:column>  
+                                <p:column filterMatchMode="contains"  filterBy="#{tp.presupuesto}">
+                                    <f:facet name="header" >
+                                        <h:outputText value="Presupuesto($)"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{tp.presupuesto}"/>
+                                </p:column> 
+
+                            </p:dataTable>
                         </p:row>
-                        
+
                     </h:form>
                 </h:panelGrid>
             </p:tab>
-            
+      
+
         </p:tabView>
     </ui:define>
 </ui:composition>
