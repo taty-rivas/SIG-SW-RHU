@@ -57,9 +57,10 @@ public class costoSalariosBean implements Serializable {
         lista.clear();
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SigCostossalarios r where  r.iAnioCostos =:anio");
+            Query query = session.createQuery("from SigCostossalarios r where  r.iAnioCostos =:anio and r.vcMesCostos=:mes");
 
             query.setParameter("anio", anio);
+            query.setParameter("mes",vcMes);
             list = (List<SigCostossalarios>) query.list();
 
             for (SigCostossalarios elem : list) {
